@@ -11,7 +11,7 @@ const wizardQuery = {
   query:
     'query collectionQuery(\n  $collection: CollectionSlug!\n) {\n  collection(collection: $collection) {\n    bannerImageUrl\n    name\n    description\n    imageUrl\n    ...CollectionHeader_data\n    id\n  }\n}\n\nfragment CollectionHeader_data on CollectionType {\n  name\n  description\n  imageUrl\n  bannerImageUrl\n  ...CollectionStatsBar_data\n  ...SocialBar_data\n  ...verification_data\n}\n\nfragment CollectionStatsBar_data on CollectionType {\n  stats {\n    averagePrice\n    numOwners\n    totalSupply\n    totalVolume\n    id\n  }\n  slug\n}\n\nfragment SocialBar_data on CollectionType {\n  discordUrl\n  externalUrl\n  instagramUsername\n  isEditable\n  mediumUsername\n  slug\n  telegramUrl\n  twitterUsername\n}\n\nfragment verification_data on CollectionType {\n  isMintable\n  isSafelisted\n  isVerified\n}\n',
   variables: {
-    collection: 'forgottenruneswizardscult',
+    collection: 'kaiju-kingz',
   },
 };
 
@@ -22,7 +22,7 @@ export const viewerTheme = createMuiTheme({
       light: '#859d92',
       main: '#1c3b4b',
       dark: '#1c3b4b',
-      contrastText: '#fff',
+      contrastText: '#000',
     },
     secondary: {
       light: '#ff7961',
@@ -33,9 +33,14 @@ export const viewerTheme = createMuiTheme({
     background: {
       paper: '#1c3b4b',
     },
+    text: {
+      primary: '#000',
+      secondary: '#000',
+    },
   },
   typography: {
-    fontFamily: ['Acme'].join(','),
+    fontFamily: ['Montserrat'].join(','),
+    fontSize: 12,
   },
 });
 

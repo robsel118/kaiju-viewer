@@ -9,9 +9,10 @@ import { viewerTheme } from './viewer.utils';
 
 const useStyles = makeStyles((theme) => ({
   siteContainer: {
-    backgroundImage: `url(./assets/wizard_bg.png)`,
-    backgroundPosition: 'center bottom',
-    backgroundRepeat: 'repeat-x',
+    backgroundImage: `url(./assets/reactor.gif)`,
+    backgroundPosition: 'center top',
+    backgroundRepeat: 'none',
+    backgroundSize: '125% 125%',
     backgroundColor: '#007872',
     paddingBottom: '520px',
     maxWidth: '100%',

@@ -1,4 +1,4 @@
-import '@fontsource/acme';
+import '@fontsource/montserrat';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import ReactDOM from 'react-dom';
 import store from './store/RootStore';

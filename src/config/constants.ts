@@ -36,7 +36,7 @@ export const rarityRegistry: RarityRegistry = {
     name: 'Uncommon',
   },
   common: {
-    color: '#ffffff',
+    color: '#000',
     cutoff: 10000,
     affinityCutoff: 20000,
     name: 'Common',

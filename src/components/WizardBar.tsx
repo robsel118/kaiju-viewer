@@ -28,8 +28,8 @@ const useStlyes = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
-    height: '75px',
-    width: '75px',
+    height: '64px',
+    width: 'auto',
   },
   titleContainer: {
     justifyContent: 'space-between',
@@ -150,8 +150,8 @@ const WizardBar = observer((): JSX.Element | null => {
     <div className={classes.appBarContainer}>
       <div className={clsx(classes.titleContainer, classes.baseContainer)}>
         <div className={classes.baseContainer}>
-          <img src={'./assets/view_wizard.png'} className={classes.titleIcon} />
-          <Typography variant="h4">Forgotten Runes Wizard's Cult</Typography>
+          <img src={'./assets/KaijuKingz-logo.png'} className={classes.titleIcon} />
+          <Typography variant="h4">KaijuKingz viewer</Typography>
         </div>
         {!user.wallet && (
           <Button variant="contained" color="secondary" startIcon={<FlashOnIcon />} onClick={user.connect}>
@@ -193,7 +193,7 @@ const WizardBar = observer((): JSX.Element | null => {
                 className={clsx(classes.filterIcon, classes.link)}
                 onClick={() => ranks.setShowUser(true)}
               >
-                My Wizards
+                My Kaijus
               </Typography>
             </Link>
             <Link to="/affinities" className={classes.routerLink}>

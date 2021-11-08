@@ -60,7 +60,7 @@ const SearchBar = observer((props: SearchBarProps): JSX.Element => {
               variant="outlined"
               size="small"
               InputLabelProps={{
-                style: { color: '#fff' },
+                style: { color: '#000' },
               }}
             />
           )}
