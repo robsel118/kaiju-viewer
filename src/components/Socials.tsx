@@ -21,13 +21,16 @@ export default function Socials(): JSX.Element {
   const classes = useStlyes();
   return (
     <div className={classes.baseContainer}>
-      <IconButton color="inherit" onClick={() => window.open('https://twitter.com/axejintao', '_blank')}>
+      <IconButton onClick={() => window.open('https://twitter.com/KaijuKingz', '_blank')}>
         <Twitter className={classes.icon} />
       </IconButton>
-      <IconButton color="inherit" onClick={() => window.open('https://discord.com/invite/F7WbxwJuZC', '_blank')}>
-        <img src={'./assets/discord.png'} className={classes.icon} />
+      <IconButton color="primary" onClick={() => window.open('https://discord.com/invite/kaiju-kingz', '_blank')}>
+        <img src={'./assets/discord.svg'} className={classes.icon} />
       </IconButton>
-      <IconButton color="inherit" onClick={() => window.open('https://github.com/axejintao/wizards-viewer', '_blank')}>
+      <IconButton color="primary" onClick={() => window.open('https://opensea.io/collection/kaiju-kingz', '_blank')}>
+        <img src={'./assets/opensea.svg'} className={classes.icon} />
+      </IconButton>
+      <IconButton onClick={() => window.open('https://github.com/robsel118/kaiju-viewer', '_blank')}>
         <GitHubIcon className={classes.githubIcon} />
       </IconButton>
     </div>
