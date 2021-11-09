@@ -6,13 +6,12 @@ import Routes from './components/Routes';
 import Socials from './components/Socials';
 import WizardBar from './components/WizardBar';
 import { viewerTheme } from './viewer.utils';
-
 const useStyles = makeStyles((theme) => ({
   siteContainer: {
     backgroundImage: `url(./assets/reactor.gif)`,
     backgroundPosition: 'center top',
     backgroundRepeat: 'none',
-    backgroundSize: '125% 125%',
+    backgroundSize: '115% 115%',
     backgroundColor: '#007872',
     paddingBottom: '520px',
     maxWidth: '100%',

@@ -1,9 +1,23 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import fetch from 'node-fetch';
 import { rarityRegistry } from './config/constants';
+import KaijuFont from './fonts/KaijuKingz.ttf';
 import { CollectionInfo } from './interface/collection-info.interface';
 import { OpenseaResponse } from './interface/opensea-response.interface';
 import { RarityConfig } from './interface/rarity-config.interface';
+
+const kaijuKingWeb = {
+  fontFamily: 'KaijuKingz',
+  fontStyle: 'semi-bold',
+  fontDisplay: 'swap',
+  fontWeight: '400',
+  src: `
+    local('Kaiju-Kingz'),
+    url(${KaijuFont}) format('truetype')
+  `,
+  unicodeRange:
+    'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;',
+} as const;
 
 const openseaGraphUrl = 'https://api.opensea.io/graphql/';
 const wizardQuery = {
@@ -39,8 +53,15 @@ export const viewerTheme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: ['Montserrat'].join(','),
+    fontFamily: ['Montserrat', 'KaijuKingz'].join(', '),
     fontSize: 12,
+  },
+  overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        '@font-face': [kaijuKingWeb],
+      },
+    },
   },
 });
 

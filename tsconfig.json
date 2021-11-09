@@ -34,6 +34,7 @@
   "include": [
     "./src/**/*.ts",
     "./src/**/*.tsx",
+    "./src/typings/*.d.ts",
   ],
   "exclude": [
     "build",

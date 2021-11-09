@@ -54,31 +54,17 @@ export default function Routes(): JSX.Element {
 
   return (
     <div className={classes.computerFrame}>
-      <div className={classes.explorerWindow}>
-        <Container className={classes.explorerTab}>
-          <div className={classes.flexContainer}>
-            <div className={classes.explorerButtonLarge} />
-            <div className={classes.explorerButtonLarge} />
-          </div>
-          <div className={classes.flexContainer}>
-            <div className={classes.explorerButtonSmall} />
-            <div className={classes.explorerButtonSmall} />
-          </div>
-        </Container>
-        <div className={classes.explorerContent}>
-          <Switch>
-            <Route exact path="/">
-              <WizardList />
-            </Route>
-            <Route path="/affinities">
-              <Affinities />
-            </Route>
-            <Route path="/traits">
-              <Traits />
-            </Route>
-          </Switch>
-        </div>
-      </div>
+      <Switch>
+        <Route exact path="/">
+          <WizardList />
+        </Route>
+        <Route path="/affinities">
+          <Affinities />
+        </Route>
+        <Route path="/traits">
+          <Traits />
+        </Route>
+      </Switch>
     </div>
   );
 }
