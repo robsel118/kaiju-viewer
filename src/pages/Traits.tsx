@@ -58,7 +58,7 @@ const Traits = observer((): JSX.Element => {
   const store = useContext(StoreContext);
   const classes = useStyles(viewerTheme);
   const { state, ranks } = store;
-  const { traitsToAffinity, traitMap } = ranks;
+  const { traitsToAffinity } = ranks;
   return (
     <div className={classes.affinityContainer}>
       <Typography variant="h4" align="center">
@@ -82,7 +82,7 @@ const Traits = observer((): JSX.Element => {
       {state.trait && (
         <>
           <Typography variant="h5" align="center">
-            {traitMap[state.trait]}
+            {/* {traitMap[state.trait]} */}
           </Typography>
           <div className={classes.cardContainer}>
             {traitsToAffinity[state.trait].identity.map((item) => {

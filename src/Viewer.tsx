@@ -1,11 +1,11 @@
 import { Container, makeStyles } from '@material-ui/core';
 import { observer } from 'mobx-react-lite';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Donation from './components/Donation';
 import Routes from './components/Routes';
 import Socials from './components/Socials';
 import WizardBar from './components/WizardBar';
 import { viewerTheme } from './viewer.utils';
+
 const useStyles = makeStyles((theme) => ({
   siteContainer: {
     backgroundImage: `url(./assets/reactor.gif)`,
@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: 'none',
     backgroundSize: '115% 115%',
     backgroundColor: '#007872',
-    paddingBottom: '520px',
     maxWidth: '100%',
     paddingTop: theme.spacing(2),
     minHeight: '100vh',
@@ -39,7 +38,6 @@ const Viewer = observer((): JSX.Element => {
           </div>
         </Container>
       </div>
-      <Donation />
     </>
   );
 });

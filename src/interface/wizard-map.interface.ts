@@ -1,5 +1,5 @@
-import { WizardData } from './wizard-data.interface';
+import { KaijuData } from './kaiju-data.interface';
 
-export interface WizardMap {
-  [id: string]: WizardData;
+export interface KaijuMap {
+  [id: string]: KaijuData;
 }

@@ -1,5 +1,4 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import fetch from 'node-fetch';
 import { rarityRegistry } from './config/constants';
 import KaijuFont from './fonts/KaijuKingz.ttf';
 import { CollectionInfo } from './interface/collection-info.interface';
@@ -65,7 +64,7 @@ export const viewerTheme = createMuiTheme({
   },
 });
 
-export async function getWizardData(): Promise<CollectionInfo | undefined> {
+export async function getKaijuData(): Promise<CollectionInfo | undefined> {
   const response = await fetch(openseaGraphUrl, {
     method: 'POST',
     body: JSON.stringify(wizardQuery),

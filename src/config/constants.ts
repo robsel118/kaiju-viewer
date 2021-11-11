@@ -1,13 +1,13 @@
 import { RarityRegistry } from '../interface/rarity-registry.interface';
 
-export const baseUrl = 'https://opensea.io/assets/0x521f9c7505005cfa19a8e5786a9c3c9c9f5e6f42/';
-export const ref = '?ref=0x8d26c9dac7e16738752fa1446b956a97c63e2f39';
-export const wizardsAddress = '0x521f9c7505005cfa19a8e5786a9c3c9c9f5e6f42';
+export const baseUrl = 'https://opensea.io/assets/0x0c2e57efddba8c768147d1fdf9176a0a6ebd5d83';
+export const ref = '';
+export const wizardsAddress = '0x0c2e57efddba8c768147d1fdf9176a0a6ebd5d83';
 
 export const rarityRegistry: RarityRegistry = {
   artifact: {
     color: '#e6cc80',
-    cutoff: 1,
+    cutoff: 0,
     affinityCutoff: 1,
     name: 'Artifact',
   },
@@ -36,8 +36,8 @@ export const rarityRegistry: RarityRegistry = {
     name: 'Uncommon',
   },
   common: {
-    color: '#000',
-    cutoff: 10000,
+    color: '#fff',
+    cutoff: 3333,
     affinityCutoff: 20000,
     name: 'Common',
   },

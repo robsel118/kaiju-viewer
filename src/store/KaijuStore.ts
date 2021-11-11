@@ -1,30 +1,30 @@
+import kaijuList from '../data/kaijus.json';
+import traitOccurence from '../data/traits.json';
 import { AffinityMap } from '../interface/affinity-map.interface';
 import { FrequencyMap } from '../interface/frequency-map.interface';
+import { KaijuData } from '../interface/kaiju-data.interface';
+import { NestedFrequencyMap } from '../interface/nested-frequency-map.interface';
 import { TraitAffinityMap } from '../interface/trait-affinity-map.interface';
 import { TraitMap } from '../interface/trait-map.interface';
-import { WizardData } from '../interface/wizard-data.interface';
-import { WizardMap } from '../interface/wizard-map.interface';
+import { KaijuMap } from '../interface/wizard-map.interface';
 import { WizardSummary } from '../interface/wizard-summary.interface';
-import { WizardSummary2 } from '../interface/wizard-summary-2.interface';
-import wizardSummary from '../wizard-summary.json';
 import { RootStore } from './RootStore';
 
-export class WizardStore {
+export class KaijuStore {
   protected store: RootStore;
-  public totalWizards: number;
+  public totalKaijus: number;
   public traitOccurences: FrequencyMap;
   public traitCounts: FrequencyMap;
   public affinityOccurences: FrequencyMap;
-  public wizards: WizardMap;
+  public wizards: KaijuMap;
   public traitMap: TraitMap;
   public traitsToAffinity: TraitAffinityMap;
   public affinityToTraits: AffinityMap;
 
   constructor(store: RootStore) {
     this.store = store;
-
     const summary = this.evaluateSummary();
-    this.totalWizards = summary.totalWizards;
+    this.totalKaijus = summary.totalKaijus;
     this.traitOccurences = summary.traitOccurences;
     this.traitCounts = summary.traitCounts;
     this.affinityOccurences = summary.affinityOccurences;
@@ -35,82 +35,46 @@ export class WizardStore {
   }
 
   private evaluateSummary(): WizardSummary {
-    const summary: WizardSummary2 = wizardSummary;
-    const { wizards: wizardMap, traits, traitMap } = summary;
-    const wizards = Object.values(wizardMap);
-
-    const traitToAffinities: AffinityMap = {};
     const affinityToTraits: AffinityMap = {};
-    Object.entries(traits).forEach((e) => {
-      const [id, trait] = e;
-      const { identity, positive } = trait;
-      const affinities = [...new Set([...identity, ...positive])];
-      traitToAffinities[id] = affinities;
-      affinities.forEach((affinity) => {
-        if (!affinityToTraits[affinity]) {
-          affinityToTraits[affinity] = [];
-        }
-        affinityToTraits[affinity] = [...new Set([...affinityToTraits[affinity], Number(id)])];
-      });
-    });
-
     const traitCounts: FrequencyMap = {};
     const traitOccurences: FrequencyMap = {};
-    const affinityOccurences: FrequencyMap = {};
-    wizards.forEach((wizard) => {
-      wizard.traits.forEach((trait) => {
-        this.count(traitOccurences, trait);
-        if (trait !== 7777) {
-          const traitAffinities = traitToAffinities[trait];
-          traitAffinities.forEach((a) => this.count(affinityOccurences, a));
-        }
-      });
-      wizard.traits = wizard.traits.filter((t) => t !== 7777);
-      this.count(traitCounts, wizard.traits.length);
-    });
 
-    const evaluatedWizards: WizardMap = Object.fromEntries(
-      wizards.map((wizard) => {
-        const { name, id, traits, image, title, nameScore, location } = wizard;
-        const affinityCounts: FrequencyMap = {};
-        traits.flatMap((t) => traitToAffinities[t]).forEach((t) => this.count(affinityCounts, t));
-        const maxKey = Object.entries(affinityCounts).sort((a, b) => {
-          const [aKey, aVal] = a;
-          const [bKey, bVal] = b;
-          if (aVal === bVal) {
-            return affinityOccurences[aKey] - affinityOccurences[bKey];
-          }
-          return bVal - aVal;
-        })[0][0];
+    const evaluateKaijus: KaijuMap = Object.fromEntries(
+      kaijuList.map((kaiju) => {
+        const { name, tokenId, attributes, image, description } = kaiju;
         const data = {
           name,
-          id,
-          traits: Object.fromEntries(traits.map((e) => [e, traitMap[e]])),
-          traitCount: traits.length,
-          affinities: affinityCounts,
+          tokenId,
+          traits: attributes,
+          traitCount: attributes.length,
           image,
-          maxAffinity: Number(maxKey),
-          title,
-          nameScore,
-          location,
+          description,
         };
-        return [wizard.id, data];
+        this.count(traitCounts, attributes.length);
+        return [kaiju.tokenId, data];
       }),
     );
 
+    Object.values(traitOccurence).reduce((acc, trait) => {
+      Object.entries(trait).forEach(([key, value]) => {
+        acc[key] = value;
+      });
+      return acc;
+    }, traitOccurences);
     return {
       traitOccurences,
-      traitCounts,
-      totalWizards: wizards.length,
-      traitMap,
-      affinityOccurences,
-      traitsToAffinity: traits,
+      traitCounts: traitCounts,
+      totalKaijus: kaijuList.length,
+      traitMap: this.generateTraitMap(traitOccurence),
+      affinityOccurences: {},
+      traitsToAffinity: {},
       affinityToTraits,
-      wizards: evaluatedWizards,
+      wizards: evaluateKaijus,
+      kaijus: evaluateKaijus,
     };
   }
 
-  randomWizard(): WizardData {
+  randomWizard(): KaijuData {
     const wizardType = this.randomItem([
       'Black Mage',
       'Blue Mage',
@@ -185,42 +149,18 @@ export class WizardStore {
       pickTrait('familiar');
     }
 
-    const affinities: FrequencyMap = {};
-    Object.keys(wizardTraits).forEach((trait) => {
-      const mappedAffinities = this.traitsToAffinity[trait];
-      const traitAffinities = [...new Set([...mappedAffinities.identity, ...mappedAffinities.positive])];
-      traitAffinities.forEach((traitAffinity) => {
-        if (!affinities[traitAffinity]) {
-          affinities[traitAffinity] = 0;
-        }
-        affinities[traitAffinity] += 1;
-      });
-    });
-    const maxAffinity = Object.entries(affinities).sort((a, b) => {
-      if (a[1] === b[1]) {
-        return this.affinityOccurences[a[0]] - this.affinityOccurences[b[0]];
-      } else {
-        return b[1] - a[1];
-      }
-    })[0][0];
-
     return {
-      id: '10001',
+      tokenId: 10001,
       rank: 10001,
       score: {
-        affinity: 0,
         trait: 0,
-        name: 0,
         total: 0,
       },
       name,
       traitCount,
-      traits: wizardTraits,
+      traits: [],
       image: '',
-      affinities,
-      maxAffinity: Number(maxAffinity),
-      title: '',
-      nameScore: 0,
+      description: '',
     };
   }
 
@@ -230,7 +170,16 @@ export class WizardStore {
     }
     map[key] += 1;
   }
-
+  private generateTraitMap(map: NestedFrequencyMap) {
+    const traitMap = {} as TraitMap;
+    let index = 0;
+    for (const [key, value] of Object.entries(map)) {
+      for (const keyValue of Object.keys(value)) {
+        traitMap[(index++).toString()] = `${key}: ${keyValue}`;
+      }
+    }
+    return traitMap;
+  }
   private randomItem<T>(items: T[]): T {
     return items[Math.floor(Math.random() * items.length)];
   }

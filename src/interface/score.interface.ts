@@ -1,6 +1,6 @@
 export interface Score {
-  affinity: number;
+  // affinity: number;
   trait: number;
-  name: number;
+  // name: number;
   total: number;
 }

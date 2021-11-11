@@ -1,6 +1,6 @@
 import { makeStyles, Paper, Typography } from '@material-ui/core';
 import { useContext } from 'react';
-import { WizardData } from '../interface/wizard-data.interface';
+import { KaijuData } from '../interface/kaiju-data.interface';
 import store from '../store/RootStore';
 import { StoreContext } from '../store/StoreContext';
 import { getRarityDescriptor, viewerTheme } from '../viewer.utils';
@@ -37,7 +37,7 @@ interface TraitProps {
 }
 
 export interface WizardTraitProps {
-  wizard: WizardData;
+  kaiju: KaijuData;
 }
 
 function WizardTrait(props: TraitProps): JSX.Element {
@@ -58,35 +58,27 @@ function WizardTrait(props: TraitProps): JSX.Element {
 
 export default function WizardTraits(props: WizardTraitProps): JSX.Element {
   const classes = useStyles(viewerTheme);
-  const { wizard } = props;
+  const { kaiju } = props;
   const { ranks } = store;
-  const maxAffinity = wizard.maxAffinity.toFixed();
-  const affinityRarity = ranks.getAffinityRarity(wizard.maxAffinity);
-  const affinityOccurrence = ranks.getAffinityOccurence(wizard.maxAffinity);
+
   return (
     <Paper className={classes.traitsPaper}>
-      <WizardTrait
-        descriptor={getRarityDescriptor(affinityRarity)}
-        typeDisplay={'Affinity'}
-        occurrence={affinityOccurrence}
-        name={maxAffinity}
-        trait={`${maxAffinity} affinity`}
-      />
-      {Object.entries(wizard.traits).map((entry, j) => {
-        const [id, trait] = entry;
-        const [type, name] = trait.split(': ');
-        const typeDisplay = type.charAt(0).toUpperCase() + type.slice(1);
-        const occurrence = ranks.getRarityOccurence(trait);
-        const rarity = ranks.getRarity(id);
+      {kaiju.traits.map((entry, j) => {
+        const traitName = entry.trait_type;
+        const traitValue = entry.value;
+
+        const typeDisplay = traitName;
+        const occurrence = ranks.getRarityOccurence(traitValue);
+        const rarity = ranks.getRarity(traitValue);
         const descriptor = getRarityDescriptor(rarity);
         return (
           <WizardTrait
-            key={`${name}-${j}`}
+            key={`${kaiju.name}-${j}`}
             descriptor={descriptor}
             typeDisplay={typeDisplay}
             occurrence={occurrence}
-            name={name}
-            trait={trait}
+            name={kaiju.name}
+            trait={traitName}
           />
         );
       })}

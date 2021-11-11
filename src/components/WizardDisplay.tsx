@@ -2,15 +2,9 @@ import { makeStyles, Paper, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 import { useContext, useEffect, useState } from 'react';
-import { WizardData } from '../interface/wizard-data.interface';
+import { KaijuData } from '../interface/kaiju-data.interface';
 import { StoreContext } from '../store/StoreContext';
-import {
-  getAffinityRarityColor,
-  getAffinityRarityDescriptor,
-  getRarityColor,
-  getRarityDescriptor,
-  viewerTheme,
-} from '../viewer.utils';
+import { getAffinityRarityColor, getRarityColor, getRarityDescriptor, viewerTheme } from '../viewer.utils';
 
 const useStyles = makeStyles((theme) => ({
   wizardDisplay: {
@@ -19,29 +13,23 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     width: '100%',
     maxWidth: '440px',
-    padding: theme.spacing(1),
-    backgroundImage: `url(./assets/tower.png)`,
     backgroundPosition: 'center bottom 60px',
     backgroundRepeat: 'no-repeat',
-    minHeight: '748px',
   },
   spriteContainer: {
     marginTop: theme.spacing(1),
-    height: '150px',
-    width: '150px',
+    height: 'auto',
+    width: '100%',
+    maxWidth: '250px',
     marginBottom: 'auto',
-  },
-  spriteImage: {
-    position: 'absolute',
   },
   traitContainer: {
     marginTop: theme.spacing(2),
     display: 'flex',
     flexDirection: 'column',
-    width: '280px',
+    width: '100%',
     padding: theme.spacing(2),
     color: '#e0decc',
-    maxHeight: '430px',
   },
   traitItem: {
     display: 'flex',
@@ -75,60 +63,47 @@ const useStyles = makeStyles((theme) => ({
     msOverflowStyle: 'none',
     scrollbarWidth: 'none',
   },
+  kaiju: {
+    fontFamily: 'KaijuKingz',
+  },
 }));
 
 const WizardDisplay = observer((): JSX.Element | null => {
   const classes = useStyles(viewerTheme);
   const store = useContext(StoreContext);
   const { state, ranks } = store;
-  const { displayRanking, totalWizards, affinityOccurences } = ranks;
+  const { displayRanking, totalKaijus } = ranks;
 
   const random = ranks.randomWizard();
-  const [wizard, setWizard] = useState<WizardData>(random);
+  const [kaiju, setWizard] = useState<KaijuData>(random);
   useEffect(() => {
-    if (state.wizard) {
-      setWizard(displayRanking[state.wizard - 1]);
+    if (state.kaiju) {
+      setWizard(displayRanking[state.kaiju - 1]);
     } else {
       setWizard(random);
     }
-  }, [state.wizard]);
+  }, [state.kaiju]);
 
-  const images = Object.entries(wizard.traits)
-    .filter((entry) => {
-      const [_key, value] = entry;
-      const traitType = value.split(': ')[0];
-      return traitType !== 'background';
-    })
-    .map((e) => `/assets/traits/${e[0]}.png`);
-  const rank = wizard.rank || Number(wizard.id);
-  const rankStyle = { color: getAffinityRarityColor(rank / totalWizards) };
-
-  const affinities = Object.fromEntries(Object.entries(wizard.affinities).filter((e) => e[1] >= 3));
-  const hasAffinities = Object.keys(affinities).length > 0;
-  const otherAffinities = Object.keys(wizard.affinities).length - Object.keys(affinities).length;
-  const affinityPercentage = (wizard.affinities[wizard.maxAffinity] / (wizard.traitCount - 1)) * 100;
-  const maxAffinityColor = getAffinityRarityColor(ranks.getAffinityRarity(wizard.maxAffinity));
-  const maxAffinityDescriptor = getAffinityRarityDescriptor(ranks.getAffinityRarity(wizard.maxAffinity));
-  const maxAffinityStyle = { color: maxAffinityColor };
+  const image = kaiju.image;
+  const rank = kaiju.rank || Number(kaiju.tokenId);
+  const rankStyle = { color: getAffinityRarityColor(rank / totalKaijus) };
 
   return (
     <div className={classes.wizardDisplay}>
       <div className={classes.spriteContainer}>
-        {images.map((image) => (
-          <img key={image} src={image} className={clsx(classes.spriteContainer, classes.spriteImage)} />
-        ))}
+        <img key={image} src={image} className={classes.spriteContainer} />
       </div>
       <Paper className={classes.traitContainer}>
         <Typography
           variant="body1"
           align="center"
           style={rankStyle}
-          className={state.wizard ? classes.section : undefined}
+          className={clsx(classes.kaiju, state.kaiju ? classes.section : undefined)}
         >
-          {wizard.name}
+          {kaiju.name}
         </Typography>
-        {!state.wizard && (
-          <Typography variant="caption" align="center" className={!state.wizard ? classes.section : undefined}>
+        {!state.kaiju && (
+          <Typography variant="caption" align="center" className={!state.kaiju ? classes.section : undefined}>
             (Randomly Generated Wizard)
           </Typography>
         )}
@@ -139,7 +114,7 @@ const WizardDisplay = observer((): JSX.Element | null => {
                 Serial ID
               </Typography>
               <Typography variant="caption" align="center">
-                {wizard.id}
+                {kaiju.tokenId}
               </Typography>
             </div>
             <div className={classes.rankDisplay}>
@@ -147,7 +122,7 @@ const WizardDisplay = observer((): JSX.Element | null => {
                 Rank
               </Typography>
               <Typography variant="caption" align="center">
-                {wizard.rank}
+                {kaiju.rank}
               </Typography>
             </div>
             <div className={classes.rankDisplay}>
@@ -155,7 +130,7 @@ const WizardDisplay = observer((): JSX.Element | null => {
                 Score
               </Typography>
               <Typography variant="caption" align="center">
-                {wizard.score?.total.toFixed(2)}
+                {kaiju.score?.total.toFixed(2)}
               </Typography>
             </div>
           </div>
@@ -163,15 +138,13 @@ const WizardDisplay = observer((): JSX.Element | null => {
             Traits
           </Typography>
           <div className={classes.section}>
-            {Object.entries(wizard.traits).map((entry, i) => {
-              const [id, trait] = entry;
-              const traitParts = trait.split(': ');
-              const traitType = traitParts[0];
-              const traitName = traitParts.slice(1).join(': ');
-              const traitRarity = getRarityDescriptor(ranks.getRarity(id));
-              const traitColor = getRarityColor(ranks.getRarity(id));
+            {kaiju.traits.map((trait, i) => {
+              const traitType = trait.trait_type;
+              const traitName = trait.value.toLowerCase();
+              const traitRarity = getRarityDescriptor(ranks.getRarity(traitName));
+              const traitColor = getRarityColor(ranks.getRarity(traitName));
               const traitStyle = { color: traitColor };
-              const traitCount = ranks.getRarityOccurence(id);
+              const traitCount = ranks.getRarityOccurence(traitName);
               return (
                 <div key={`trait-${i}`} className={classes.traitItem}>
                   <div className={classes.descriptor}>
@@ -189,14 +162,14 @@ const WizardDisplay = observer((): JSX.Element | null => {
               );
             })}
           </div>
-          <Typography variant="body1" align="center" style={maxAffinityStyle}>
+          {/* <Typography variant="body1" align="center" style={maxAffinityStyle}>
             {maxAffinityDescriptor} Affinity
-          </Typography>
-          <Typography variant="body2" align="center" className={classes.section}>
-            {affinityPercentage.toFixed()}% Attuned (id: {wizard.maxAffinity})
-          </Typography>
+          </Typography> */}
+          {/* <Typography variant="body2" align="center" className={classes.section}>
+            {affinityPercentage.toFixed()}% Attuned (id: {kaiju.maxAffinity})
+          </Typography> */}
           <div className={classes.section}>
-            {hasAffinities &&
+            {/* {hasAffinities &&
               Object.entries(affinities)
                 .sort((a, b) => {
                   if (a[1] === b[1]) {
@@ -223,12 +196,12 @@ const WizardDisplay = observer((): JSX.Element | null => {
                         </Typography>
                       </div>
                       <Typography variant="body2" align="right" style={percentageStyle}>
-                        {value} / {wizard.traitCount - 1} traits
+                        {value} / {kaiju.traitCount - 1} traits
                       </Typography>
                     </div>
                   );
-                })}
-            <div className={clsx(classes.flexContainer, classes.rankContainer, classes.section)}>
+                })} */}
+            {/* <div className={clsx(classes.flexContainer, classes.rankContainer, classes.section)}>
               {!hasAffinities && (
                 <Typography variant="body2" align="center" className={classes.section}>
                   0 notable affinities
@@ -239,8 +212,8 @@ const WizardDisplay = observer((): JSX.Element | null => {
                   {otherAffinities} other {otherAffinities > 1 ? 'affinities' : 'affinity'}
                 </Typography>
               )}
-            </div>
-            {ranks.custom && wizard.score && (
+            </div> */}
+            {ranks.custom && kaiju.score && (
               <>
                 <Typography variant="body1" align="center" className={classes.section}>
                   Score Breakdown
@@ -255,7 +228,7 @@ const WizardDisplay = observer((): JSX.Element | null => {
                     </Typography>
                   </div>
                   <Typography variant="h6" align="right">
-                    {wizard.score.trait.toFixed(2)}
+                    {kaiju.score.trait.toFixed(2)}
                   </Typography>
                 </div>
                 <div className={classes.traitItem}>
@@ -267,9 +240,9 @@ const WizardDisplay = observer((): JSX.Element | null => {
                       Trait Percentile
                     </Typography>
                   </div>
-                  <Typography variant="h6" align="right">
-                    {wizard.score.affinity.toFixed(2)}
-                  </Typography>
+                  {/* <Typography variant="h6" align="right">
+                    {kaiju.score.affinity.toFixed(2)}
+                  </Typography> */}
                 </div>
                 <div className={classes.traitItem}>
                   <div className={classes.descriptor}>
@@ -280,9 +253,9 @@ const WizardDisplay = observer((): JSX.Element | null => {
                       Trait Percentile
                     </Typography>
                   </div>
-                  <Typography variant="h6" align="right">
-                    {wizard.score.name.toFixed(2)}
-                  </Typography>
+                  {/* <Typography variant="h6" align="right">
+                    {kaiju.score.name.toFixed(2)}
+                  </Typography> */}
                 </div>
               </>
             )}

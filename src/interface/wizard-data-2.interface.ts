@@ -1,4 +1,4 @@
-export interface WizardData2 {
+export interface KaijuData2 {
   name: string;
   title: string;
   location?: string;

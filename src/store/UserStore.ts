@@ -2,14 +2,14 @@ import { ethers, Signer } from 'ethers';
 import { action, extendObservable } from 'mobx';
 import { wizardsAddress } from '../config/constants';
 import { Wizards__factory } from '../contracts';
-import { WizardData } from '../interface/wizard-data.interface';
+import { KaijuData } from '../interface/kaiju-data.interface';
 import { RootStore } from './RootStore';
 
 export class UserStore {
   private store: RootStore;
   public wallet?: Signer;
   public collection?: number[];
-  public wizards?: WizardData[];
+  public wizards?: KaijuData[];
   public address?: string;
   public display?: number;
 
@@ -55,7 +55,7 @@ export class UserStore {
     }
   });
 
-  updateWizards = action((wizards: WizardData[]): void => {
+  updateWizards = action((wizards: KaijuData[]): void => {
     this.wizards = wizards;
   });
 }

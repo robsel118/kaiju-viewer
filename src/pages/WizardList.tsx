@@ -97,8 +97,8 @@ const WizardList = observer(() => {
           </div>
           <div className={classes.explorerContent}>
             <List dense className={classes.list}>
-              {ranks.display.slice(start, end).map((wizard) => (
-                <WizardListItem key={wizard.id} wizard={wizard} />
+              {ranks.display.slice(start, end).map((kaiju) => (
+                <WizardListItem key={kaiju.tokenId} kaiju={kaiju} />
               ))}
             </List>
             <div className={clsx(classes.itemContainer, classes.centerContainer)}>

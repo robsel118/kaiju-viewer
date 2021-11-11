@@ -14,9 +14,9 @@ import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 import { useContext } from 'react';
 import { baseUrl, ref } from '../config/constants';
-import { WizardData } from '../interface/wizard-data.interface';
+import { KaijuData } from '../interface/kaiju-data.interface';
 import { StoreContext } from '../store/StoreContext';
-import { getAffinityRarityDescriptor, getRarityDescriptor, viewerTheme } from '../viewer.utils';
+import { getRarityDescriptor, viewerTheme } from '../viewer.utils';
 import WizardTraits from './WizardTraits';
 
 const useStyles = makeStyles((theme) => ({
@@ -71,21 +71,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface WizardListItemProps {
-  wizard: WizardData;
+  kaiju: KaijuData;
 }
 
 const WizardListItem = observer((props: WizardListItemProps): JSX.Element => {
   const isMobile = useMediaQuery(viewerTheme.breakpoints.down('sm'));
   const classes = useStyles();
-  const { wizard } = props;
+  const { kaiju } = props;
 
   const store = useContext(StoreContext);
   const { ranks, state } = store;
-  const { rank } = wizard;
+  const { rank } = kaiju;
 
-  const maxAffinity = wizard.maxAffinity.toFixed();
-  const affinityRarity = getAffinityRarityDescriptor(ranks.getAffinityRarity(wizard.maxAffinity));
-  const traitCountRarity = getRarityDescriptor(ranks.getCountRarity(wizard.traitCount));
+  const traitCountRarity = getRarityDescriptor(ranks.getCountRarity(kaiju.traitCount));
 
   return (
     <>
@@ -100,31 +98,31 @@ const WizardListItem = observer((props: WizardListItemProps): JSX.Element => {
         <div className={clsx(classes.baseContainer, classes.wizardContainer)}>
           <ListItemText primary={`${rank}.`} className={classes.rank} />
           <ListItemAvatar>
-            <Avatar alt={`${wizard.name} Avatar`} src={wizard.image} />
+            <Avatar alt={`${kaiju.name} Avatar`} src={kaiju.image} />
           </ListItemAvatar>
-          <ListItemText primary={wizard.name} secondary={`Serial: ${wizard.id}`} />
+          <ListItemText primary={kaiju.name} secondary={`Serial: ${kaiju.tokenId}`} />
         </div>
         <div className={classes.baseContainer}>
-          <ListItemText
+          {/* <ListItemText
             primary={`${affinityRarity} Affinity`}
-            secondary={`${wizard.affinities[maxAffinity]} / ${wizard.traitCount - 1} traits`}
+            secondary={`${kaiju.traitCount - 1} traits`}
             className={classes.infoItem}
-          />
+          /> */}
           <ListItemText
             primary={`${traitCountRarity} Trait Count`}
-            secondary={`${wizard.traitCount} traits`}
+            secondary={`${kaiju.traitCount} traits`}
             className={classes.infoItem}
           />
           <ListItemAvatar className={classes.avatar}>
-            <IconButton onClick={() => window.open(`${baseUrl}${wizard.id}${ref}`)}>
+            <IconButton onClick={() => window.open(`${baseUrl}${kaiju.tokenId}${ref}`)}>
               <ExitToAppIcon />
             </IconButton>
           </ListItemAvatar>
         </div>
       </ListItem>
       {isMobile && (
-        <Collapse key={`collapse-${wizard.rank}`} in={state.wizard === rank} unmountOnExit>
-          <WizardTraits wizard={wizard} />
+        <Collapse key={`collapse-${kaiju.rank}`} in={state.kaiju === rank} unmountOnExit>
+          <WizardTraits kaiju={kaiju} />
         </Collapse>
       )}
     </>

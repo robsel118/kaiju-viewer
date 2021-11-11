@@ -1,4 +1,4 @@
-import { Container, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import { Route, Switch } from 'react-router-dom';
 import Affinities from '../pages/Affinities';
 import Traits from '../pages/Traits';
@@ -7,16 +7,18 @@ import { viewerTheme } from '../viewer.utils';
 
 const useStyles = makeStyles((theme) => ({
   computerFrame: {
-    border: '36px ridge #32344C',
-    borderWidth: '36px 24px',
-    padding: theme.spacing(3),
-    background: `repeating-linear-gradient(
-      0deg,
-      #70E0C7,
-      #70E0C7 10px,
-      #E9FCF8 10px,
-      #E9FCF8 20px
-      );`,
+    [theme.breakpoints.up('sm')]: {
+      border: '36px ridge #32344C',
+      borderWidth: '36px 24px',
+      padding: theme.spacing(3),
+      background: `repeating-linear-gradient(
+        0deg,
+        #70E0C7,
+        #70E0C7 10px,
+        #E9FCF8 10px,
+        #E9FCF8 20px
+        );`,
+    },
   },
   explorerWindow: {
     border: '12px solid #748C7B',

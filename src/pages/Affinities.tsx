@@ -65,7 +65,7 @@ const Affinities = observer((): JSX.Element => {
   const classes = useStyles(viewerTheme);
   const { state } = store;
 
-  const { affinityToTraits, traitMap } = store.ranks;
+  const { affinityToTraits } = store.ranks;
   return (
     <div className={classes.affinityContainer}>
       <Typography variant="h4" align="center">
@@ -96,7 +96,7 @@ const Affinities = observer((): JSX.Element => {
             {affinityToTraits[state.affinity].map((item) => {
               return (
                 <Paper key={item} className={classes.card}>
-                  <Typography variant="body1">{traitMap[item]}</Typography>
+                  {/* <Typography variant="body1">{traitMap[item]}</Typography> */}
                   <img src={'/assets/traits/' + item + '.png'} height={75} width={75} />
                 </Paper>
               );
