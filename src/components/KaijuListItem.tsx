@@ -17,7 +17,7 @@ import { baseUrl, ref } from '../config/constants';
 import { KaijuData } from '../interface/kaiju-data.interface';
 import { StoreContext } from '../store/StoreContext';
 import { getRarityDescriptor, viewerTheme } from '../viewer.utils';
-import WizardTraits from './WizardTraits';
+import WizardTraits from './KaijuTraits';
 
 const useStyles = makeStyles((theme) => ({
   wizardListItem: {
@@ -103,11 +103,7 @@ const WizardListItem = observer((props: WizardListItemProps): JSX.Element => {
           <ListItemText primary={kaiju.name} secondary={`Serial: ${kaiju.tokenId}`} />
         </div>
         <div className={classes.baseContainer}>
-          {/* <ListItemText
-            primary={`${affinityRarity} Affinity`}
-            secondary={`${kaiju.traitCount - 1} traits`}
-            className={classes.infoItem}
-          /> */}
+          <ListItemText primary={``} secondary={`${kaiju.traitCount - 1} traits`} className={classes.infoItem} />
           <ListItemText
             primary={`${traitCountRarity} Trait Count`}
             secondary={`${kaiju.traitCount} traits`}

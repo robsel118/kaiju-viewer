@@ -47,6 +47,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "yarn run lint --fix",
+    "scrape": "node ./scripts/scraper.js",
     "lint": "eslint .",
     "predeploy": "npm run build",
     "deploy": "echo 'wizards.guide' > ./build/CNAME && gh-pages -d build",

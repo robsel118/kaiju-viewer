@@ -9,7 +9,7 @@ export class UserStore {
   private store: RootStore;
   public wallet?: Signer;
   public collection?: number[];
-  public wizards?: KaijuData[];
+  public kaijus?: KaijuData[];
   public address?: string;
   public display?: number;
 
@@ -19,7 +19,7 @@ export class UserStore {
     extendObservable(this, {
       wallet: this.wallet,
       collection: this.collection,
-      wizards: this.wizards,
+      kaijus: this.kaijus,
       address: this.address,
     });
 
@@ -42,8 +42,8 @@ export class UserStore {
         const wizardIds = await wizardContract.tokensOfOwner(this.address);
         this.collection = wizardIds.map((id) => Number(id.toString()));
         const collection = wizardIds.map((id) => id.toString());
-        this.wizards = collection
-          .map((id) => this.store.ranks.wizards[id])
+        this.kaijus = collection
+          .map((id) => this.store.ranks.kaijus[id])
           .sort((a, b) => {
             if (!a.rank || !b.rank) {
               return 0;
@@ -55,7 +55,7 @@ export class UserStore {
     }
   });
 
-  updateWizards = action((wizards: KaijuData[]): void => {
-    this.wizards = wizards;
+  updateWizards = action((kaijus: KaijuData[]): void => {
+    this.kaijus = kaijus;
   });
 }

@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function WizardFilterOptions(): JSX.Element | null {
+export default function KaijuFilterOptions(): JSX.Element | null {
   const classes = useStyles(viewerTheme);
   const store = useContext(StoreContext);
   const { ranks } = store;

@@ -1,9 +1,9 @@
 import { Container, makeStyles } from '@material-ui/core';
 import { observer } from 'mobx-react-lite';
 import { BrowserRouter as Router } from 'react-router-dom';
+import KaijuBar from './components/KaijuBar';
 import Routes from './components/Routes';
 import Socials from './components/Socials';
-import WizardBar from './components/WizardBar';
 import { viewerTheme } from './viewer.utils';
 
 const useStyles = makeStyles((theme) => ({
@@ -30,7 +30,7 @@ const Viewer = observer((): JSX.Element => {
       <div className={classes.siteContainer}>
         <Container>
           <Router>
-            <WizardBar />
+            <KaijuBar />
             <Routes />
           </Router>
           <div className={classes.centerContainer}>

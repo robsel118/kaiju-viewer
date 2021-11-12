@@ -1,8 +1,4 @@
 export interface ScoreStats {
-  // minAffinityWeight: number;
-  // maxAffinityWeight: number;
-  // minAffinityRarity: number;
-  // maxAffinityRarity: number;
   minTraitCountRarity: number;
   maxTraitCountRarity: number;
   minTraitRarity: number;
@@ -11,6 +7,4 @@ export interface ScoreStats {
   maxPrimarityTraitRarity: number;
   minSecondaryTraitRarity: number;
   maxSecondaryTraitRarity: number;
-  // minNameScore: number;
-  // maxNameScore: number;
 }

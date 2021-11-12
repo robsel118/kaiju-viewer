@@ -2,8 +2,8 @@ import { List, makeStyles, TablePagination, useMediaQuery } from '@material-ui/c
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 import { useContext, useEffect, useState } from 'react';
-import WizardDisplay from '../components/WizardDisplay';
-import WizardListItem from '../components/WizardListItem';
+import KaijuDisplay from '../components/KaijuDisplay';
+import KaijuListItem from '../components/KaijuListItem';
 import { StoreContext } from '../store/StoreContext';
 import { viewerTheme } from '../viewer.utils';
 
@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const WizardList = observer(() => {
+const KaijuList = observer(() => {
   const isMobile = useMediaQuery(viewerTheme.breakpoints.down('sm'));
   const store = useContext(StoreContext);
   const classes = useStyles(viewerTheme);
@@ -98,7 +98,7 @@ const WizardList = observer(() => {
           <div className={classes.explorerContent}>
             <List dense className={classes.list}>
               {ranks.display.slice(start, end).map((kaiju) => (
-                <WizardListItem key={kaiju.tokenId} kaiju={kaiju} />
+                <KaijuListItem key={kaiju.tokenId} kaiju={kaiju} />
               ))}
             </List>
             <div className={clsx(classes.itemContainer, classes.centerContainer)}>
@@ -125,11 +125,11 @@ const WizardList = observer(() => {
               <div className={classes.explorerButtonSmall} />
             </div>
           </div>
-          <div className={classes.explorerContent}>{!isMobile && <WizardDisplay />}</div>
+          <div className={classes.explorerContent}>{!isMobile && <KaijuDisplay />}</div>
         </div>
       </div>
     </div>
   );
 });
 
-export default WizardList;
+export default KaijuList;

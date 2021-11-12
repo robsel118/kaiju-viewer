@@ -1,7 +1,6 @@
 import { makeStyles, Typography } from '@material-ui/core';
 import { observer } from 'mobx-react-lite';
 import { useContext } from 'react';
-import Affinity from '../components/Affinity';
 import { StoreContext } from '../store/StoreContext';
 import { viewerTheme } from '../viewer.utils';
 
@@ -57,8 +56,7 @@ const useStyles = makeStyles((theme) => ({
 const Traits = observer((): JSX.Element => {
   const store = useContext(StoreContext);
   const classes = useStyles(viewerTheme);
-  const { state, ranks } = store;
-  const { traitsToAffinity } = ranks;
+  const { state } = store;
   return (
     <div className={classes.affinityContainer}>
       <Typography variant="h4" align="center">
@@ -84,16 +82,6 @@ const Traits = observer((): JSX.Element => {
           <Typography variant="h5" align="center">
             {/* {traitMap[state.trait]} */}
           </Typography>
-          <div className={classes.cardContainer}>
-            {traitsToAffinity[state.trait].identity.map((item) => {
-              return <Affinity key={item} id={item} identity />;
-            })}
-          </div>
-          <div className={classes.cardContainer}>
-            {traitsToAffinity[state.trait].positive.map((item) => {
-              return <Affinity key={item} id={item} identity={false} />;
-            })}
-          </div>
         </>
       )}
     </div>

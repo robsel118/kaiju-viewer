@@ -17,8 +17,8 @@ import { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { StoreContext } from '../store/StoreContext';
 import { viewerTheme } from '../viewer.utils';
+import KaijuFilterOptions from './KaijuFilterOptions';
 import SearchBar, { SearchHandler } from './SearchBar';
-import WizardFilterOptions from './WizardFilterOptions';
 
 const useStlyes = makeStyles((theme) => ({
   appBarContainer: {
@@ -101,20 +101,20 @@ const useStlyes = makeStyles((theme) => ({
   },
 }));
 
-const WizardBar = observer((): JSX.Element | null => {
+const KaijuBar = observer((): JSX.Element | null => {
   const location = useLocation();
   const store = useContext(StoreContext);
   const classes = useStlyes(viewerTheme);
   const { ranks, user, state } = store;
   const { affinityOccurences, traitMap } = ranks;
 
-  let wizardCount = 0;
+  let kaijuCount = 0;
   let avatarImage = undefined;
-  if (user.wizards && user.wizards.length > 0) {
-    wizardCount = user.wizards.length;
-    avatarImage = user.wizards[0].image;
+  if (user.kaijus && user.kaijus.length > 0) {
+    kaijuCount = user.kaijus.length;
+    avatarImage = user.kaijus[0].image;
   }
-  const hasWizards = wizardCount > 0;
+  const haskaijus = kaijuCount > 0;
 
   const affinityOptions = Object.entries(affinityOccurences)
     .sort((a, b) => b[1] - a[1])
@@ -172,9 +172,9 @@ const WizardBar = observer((): JSX.Element | null => {
                 className={classes.link}
                 variant="caption"
                 onClick={() => window.open(`https://opensea.io/${user.address}`, '_blank')}
-              >{`${wizardCount} wizards`}</Typography>
+              >{`${kaijuCount} kaijus`}</Typography>
             </div>
-            {hasWizards && <Avatar alt={'Profile Avatar'} src={avatarImage} className={classes.avatar} />}
+            {haskaijus && <Avatar alt={'Profile Avatar'} src={avatarImage} className={classes.avatar} />}
           </div>
         )}
       </div>
@@ -230,11 +230,11 @@ const WizardBar = observer((): JSX.Element | null => {
       </AppBar>
       <Container>
         <Collapse in={state.showFilter}>
-          <WizardFilterOptions />
+          <KaijuFilterOptions />
         </Collapse>
       </Container>
     </div>
   );
 });
 
-export default WizardBar;
+export default KaijuBar;

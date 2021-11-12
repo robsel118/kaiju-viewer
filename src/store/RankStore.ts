@@ -18,9 +18,9 @@ export class RankStore extends KaijuStore {
   constructor(store: RootStore) {
     super(store);
     const counts = Object.values(this.traitOccurences).map((count) => count / this.totalKaijus);
-    const primaryRarities = Object.values(this.wizards).map((kaiju) => this.getTraitsRarity(kaiju, true));
-    const secondaryRarities = Object.values(this.wizards).map((kaiju) => this.getTraitsRarity(kaiju, false));
-    const compositeRarities = Object.values(this.wizards).map((kaiju) =>
+    const primaryRarities = Object.values(this.kaijus).map((kaiju) => this.getTraitsRarity(kaiju, true));
+    const secondaryRarities = Object.values(this.kaijus).map((kaiju) => this.getTraitsRarity(kaiju, false));
+    const compositeRarities = Object.values(this.kaijus).map((kaiju) =>
       Math.pow(this.getTraitsRarity(kaiju, true) * this.getTraitsRarity(kaiju, false), 0.01),
     );
     this.scoreStats = {
@@ -56,9 +56,9 @@ export class RankStore extends KaijuStore {
 
   updateUserWizards() {
     const ranking = this.custom ? this.customRanking : this.ranking;
-    const wizards = this.store.user.wizards ?? [];
-    const userWizards = new Set(wizards.map((kaiju) => kaiju.tokenId));
-    this.store.user.wizards = ranking.filter((kaiju) => userWizards.has(kaiju.tokenId));
+    const kaijus = this.store.user.kaijus ?? [];
+    const userWizards = new Set(kaijus.map((kaiju) => kaiju.tokenId));
+    this.store.user.kaijus = ranking.filter((kaiju) => userWizards.has(kaiju.tokenId));
   }
 
   get displayRanking(): KaijuData[] {
@@ -75,9 +75,9 @@ export class RankStore extends KaijuStore {
 
   get display(): KaijuData[] {
     let displayList: KaijuData[] = [];
-    const { wizards } = this.store.user;
+    const { kaijus } = this.store.user;
     if (this.showUser) {
-      displayList = wizards ? wizards : [];
+      displayList = kaijus ? kaijus : [];
     } else {
       displayList = this.custom ? this.customRanking : this.ranking;
     }
@@ -115,8 +115,8 @@ export class RankStore extends KaijuStore {
   }
 
   evaluateRank(): KaijuData[] {
-    const wizards: KaijuData[] = JSON.parse(JSON.stringify(Object.values(this.wizards)));
-    return wizards
+    const kaijus: KaijuData[] = JSON.parse(JSON.stringify(Object.values(this.kaijus)));
+    return kaijus
       .sort((a, b) => this.score(b).total - this.score(a).total)
       .map((w, i, list) => {
         const currentScore = this.score(w);

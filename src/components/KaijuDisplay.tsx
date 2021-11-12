@@ -68,21 +68,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const WizardDisplay = observer((): JSX.Element | null => {
+const KaijuDisplay = observer((): JSX.Element | null => {
   const classes = useStyles(viewerTheme);
   const store = useContext(StoreContext);
   const { state, ranks } = store;
   const { displayRanking, totalKaijus } = ranks;
 
-  const random = ranks.randomWizard();
-  const [kaiju, setWizard] = useState<KaijuData>(random);
+  const random = Math.floor(Math.random() * (totalKaijus - 0)) + 0;
+  const [kaiju, setKaiju] = useState<KaijuData>(displayRanking[random]);
   useEffect(() => {
     if (state.kaiju) {
-      setWizard(displayRanking[state.kaiju - 1]);
+      setKaiju(displayRanking[state.kaiju - 1]);
     } else {
-      setWizard(random);
+      setKaiju(displayRanking[random]);
     }
-  }, [state.kaiju]);
+  }, [state.kaiju, displayRanking]);
 
   const image = kaiju.image;
   const rank = kaiju.rank || Number(kaiju.tokenId);
@@ -104,7 +104,7 @@ const WizardDisplay = observer((): JSX.Element | null => {
         </Typography>
         {!state.kaiju && (
           <Typography variant="caption" align="center" className={!state.kaiju ? classes.section : undefined}>
-            (Randomly Generated Wizard)
+            (Randomly slected Kaiju)
           </Typography>
         )}
         <div className={classes.infoContainer}>
@@ -266,4 +266,4 @@ const WizardDisplay = observer((): JSX.Element | null => {
   );
 });
 
-export default WizardDisplay;
+export default KaijuDisplay;
