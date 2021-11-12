@@ -1,6 +1,6 @@
 import { RarityRegistry } from '../interface/rarity-registry.interface';
 
-export const baseUrl = 'https://opensea.io/assets/0x0c2e57efddba8c768147d1fdf9176a0a6ebd5d83';
+export const baseUrl = 'https://opensea.io/assets/0x0c2e57efddba8c768147d1fdf9176a0a6ebd5d83/';
 export const ref = '';
 export const wizardsAddress = '0x0c2e57efddba8c768147d1fdf9176a0a6ebd5d83';
 
