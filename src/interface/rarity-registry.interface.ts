@@ -1,7 +1,7 @@
 import { RarityConfig } from './rarity-config.interface';
 
 export interface RarityRegistry {
-  artifact: RarityConfig;
+  radioactive: RarityConfig;
   legendary: RarityConfig;
   epic: RarityConfig;
   rare: RarityConfig;

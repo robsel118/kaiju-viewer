@@ -9,6 +9,7 @@ export interface KaijuData {
   traitCount: number;
   image: string;
   rank?: number;
+  virtualRank?: number;
   score?: Score;
   expanded?: boolean;
 }

@@ -5,11 +5,11 @@ export const ref = '';
 export const wizardsAddress = '0x0c2e57efddba8c768147d1fdf9176a0a6ebd5d83';
 
 export const rarityRegistry: RarityRegistry = {
-  artifact: {
+  radioactive: {
     color: '#e6cc80',
-    cutoff: 0,
+    cutoff: 1,
     affinityCutoff: 1,
-    name: 'Artifact',
+    name: 'Radioactive',
   },
   legendary: {
     color: '#ff8000',

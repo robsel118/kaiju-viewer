@@ -43,7 +43,8 @@ export interface WizardTraitProps {
 function WizardTrait(props: TraitProps): JSX.Element {
   const classes = useStyles(viewerTheme);
   const store = useContext(StoreContext);
-  const { descriptor, typeDisplay, name, occurrence, trait } = props;
+
+  const { descriptor, typeDisplay, name, trait } = props;
   const { ranks } = store;
   return (
     <div className={classes.traitContainer}>
@@ -51,7 +52,7 @@ function WizardTrait(props: TraitProps): JSX.Element {
       <Typography variant="body1" onClick={() => ranks.search(trait)} className={classes.searchCursor}>
         {name}
       </Typography>
-      <Typography variant="caption">{`${occurrence} of 10,000`}</Typography>
+      <Typography variant="caption">{`${ranks.getRarityOccurence(trait)} of 10,000`}</Typography>
     </div>
   );
 }

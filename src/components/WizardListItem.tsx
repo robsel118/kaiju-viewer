@@ -81,7 +81,7 @@ const WizardListItem = observer((props: WizardListItemProps): JSX.Element => {
 
   const store = useContext(StoreContext);
   const { ranks, state } = store;
-  const { rank } = kaiju;
+  const { rank, virtualRank } = kaiju;
 
   const traitCountRarity = getRarityDescriptor(ranks.getCountRarity(kaiju.traitCount));
 
@@ -96,7 +96,7 @@ const WizardListItem = observer((props: WizardListItemProps): JSX.Element => {
         onClick={() => state.setWizard(rank)}
       >
         <div className={clsx(classes.baseContainer, classes.wizardContainer)}>
-          <ListItemText primary={`${rank}.`} className={classes.rank} />
+          <ListItemText primary={`${virtualRank}.`} className={classes.rank} />
           <ListItemAvatar>
             <Avatar alt={`${kaiju.name} Avatar`} src={kaiju.image} />
           </ListItemAvatar>

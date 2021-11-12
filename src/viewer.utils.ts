@@ -79,7 +79,7 @@ export async function getKaijuData(): Promise<CollectionInfo | undefined> {
 function getRarityConfig(rarity: number, getCutoff: (config: RarityConfig) => number): RarityConfig {
   const rarityConfigs: RarityConfig[] = Object.values(rarityRegistry);
   for (const config of rarityConfigs) {
-    if (getCutoff(config) / 10000 >= rarity) {
+    if (getCutoff(config) / 3333 >= rarity) {
       return config;
     }
   }

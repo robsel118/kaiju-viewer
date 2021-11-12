@@ -118,9 +118,16 @@ export class RankStore extends KaijuStore {
     const wizards: KaijuData[] = JSON.parse(JSON.stringify(Object.values(this.wizards)));
     return wizards
       .sort((a, b) => this.score(b).total - this.score(a).total)
-      .map((w, i) => {
+      .map((w, i, list) => {
+        const currentScore = this.score(w);
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        if (i > 0 && list[i - 1] && list[i - 1].score!.total === currentScore.total) {
+          w.virtualRank = list[i - 1].virtualRank;
+        } else {
+          w.virtualRank = i + 1;
+        }
         w.rank = i + 1;
-        w.score = this.score(w);
+        w.score = currentScore;
         return w;
       });
   }
@@ -142,11 +149,22 @@ export class RankStore extends KaijuStore {
       if (trait.trait_type === 'Origin') {
         return score;
       } else {
-        return score + 1 / this.getRarityOccurence(trait.value.toLowerCase()) / this.totalKaijus;
+        return score + (1 / (this.getRarity(trait.value.toLowerCase()) * 100)) * this.getTraitWeight(trait.trait_type);
       }
     }, 0);
 
     return { trait, total };
+  }
+
+  getTraitWeight(traitType: string): number {
+    if (traitType === 'Legendary') {
+      return 10;
+    } else if (traitType === 'Special') {
+      return 5;
+    } else if (traitType === 'Advocate') {
+      return 3;
+    }
+    return 1;
   }
 
   getRarity(trait: string): number {
