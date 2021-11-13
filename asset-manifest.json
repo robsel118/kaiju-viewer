@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.js": "/kaiju-viewer/static/js/main.ee4d2399.chunk.js",
+    "main.js.map": "/kaiju-viewer/static/js/main.ee4d2399.chunk.js.map",
+    "runtime-main.js": "/kaiju-viewer/static/js/runtime-main.6d29fdf9.js",
+    "runtime-main.js.map": "/kaiju-viewer/static/js/runtime-main.6d29fdf9.js.map",
+    "static/css/2.05791801.chunk.css": "/kaiju-viewer/static/css/2.05791801.chunk.css",
+    "static/js/2.0f73ed1e.chunk.js": "/kaiju-viewer/static/js/2.0f73ed1e.chunk.js",
+    "static/js/2.0f73ed1e.chunk.js.map": "/kaiju-viewer/static/js/2.0f73ed1e.chunk.js.map",
+    "index.html": "/kaiju-viewer/index.html",
+    "static/css/2.05791801.chunk.css.map": "/kaiju-viewer/static/css/2.05791801.chunk.css.map",
+    "static/js/2.0f73ed1e.chunk.js.LICENSE.txt": "/kaiju-viewer/static/js/2.0f73ed1e.chunk.js.LICENSE.txt",
+    "static/media/KaijuKingz.5c7a5ce9.ttf": "/kaiju-viewer/static/media/KaijuKingz.5c7a5ce9.ttf",
+    "static/media/index.css": "/kaiju-viewer/static/media/montserrat-vietnamese-400-normal.968b706e.woff2"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6d29fdf9.js",
+    "static/css/2.05791801.chunk.css",
+    "static/js/2.0f73ed1e.chunk.js",
+    "static/js/main.ee4d2399.chunk.js"
+  ]
+}
