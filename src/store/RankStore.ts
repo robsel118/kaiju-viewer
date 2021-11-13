@@ -10,7 +10,7 @@ export class RankStore extends KaijuStore {
   public ranking: KaijuData[];
   public customRanking: KaijuData[];
   public custom = true;
-  public showUser = false;
+  // public showUser = false;
   public maxAffinity = false;
   public maxPercent = false;
   public filter?: string;
@@ -36,30 +36,30 @@ export class RankStore extends KaijuStore {
     this.customRanking = this.evaluateRank();
     this.custom = false;
     this.ranking = this.evaluateRank();
-    this.updateUserWizards();
+    // this.updateUserWizards();
 
     const rankObeserver = extendObservable(this, {
       ranking: this.ranking,
       custom: this.custom,
       filter: this.filter,
-      showUser: this.showUser,
+      // showUser: this.showUser,
       maxAffinity: this.maxAffinity,
       maxPercent: this.maxPercent,
     });
 
     observe(rankObeserver, (change: IObjectDidChange) => {
       if (change.name === 'custom') {
-        this.updateUserWizards();
+        // this.updateUserWizards();
       }
     });
   }
 
-  updateUserWizards() {
-    const ranking = this.custom ? this.customRanking : this.ranking;
-    const kaijus = this.store.user.kaijus ?? [];
-    const userWizards = new Set(kaijus.map((kaiju) => kaiju.tokenId));
-    this.store.user.kaijus = ranking.filter((kaiju) => userWizards.has(kaiju.tokenId));
-  }
+  // updateUserWizards() {
+  //   const ranking = this.custom ? this.customRanking : this.ranking;
+  //   const kaijus = this.store.user.kaijus ?? [];
+  //   const userWizards = new Set(kaijus.map((kaiju) => kaiju.tokenId));
+  //   this.store.user.kaijus = ranking.filter((kaiju) => userWizards.has(kaiju.tokenId));
+  // }
 
   get displayRanking(): KaijuData[] {
     return this.custom ? this.customRanking : this.ranking;
@@ -75,12 +75,12 @@ export class RankStore extends KaijuStore {
 
   get display(): KaijuData[] {
     let displayList: KaijuData[] = [];
-    const { kaijus } = this.store.user;
-    if (this.showUser) {
-      displayList = kaijus ? kaijus : [];
-    } else {
-      displayList = this.custom ? this.customRanking : this.ranking;
-    }
+    // const { kaijus } = this.store.user;
+    // if (this.showUser) {
+    //   displayList = kaijus ? kaijus : [];
+    // } else {
+    displayList = this.custom ? this.customRanking : this.ranking;
+    // }
     return displayList.filter((kaiju) => {
       if (!this.filter) {
         return true;
@@ -191,12 +191,12 @@ export class RankStore extends KaijuStore {
     this.maxPercent = !this.maxPercent;
   });
 
-  setShowUser = action((showUser: boolean) => {
-    if (this.showUser === showUser) {
-      return;
-    }
-    this.showUser = showUser;
-  });
+  // setShowUser = action((showUser: boolean) => {
+  //   if (this.showUser === showUser) {
+  //     return;
+  //   }
+  //   this.showUser = showUser;
+  // });
 
   search = action((filter?: string) => {
     this.store.state.setWizard(undefined);

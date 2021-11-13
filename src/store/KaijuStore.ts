@@ -1,11 +1,9 @@
 import kaijuList from '../data/kaijus.json';
 import traitOccurence from '../data/traits.json';
-import { AffinityMap } from '../interface/affinity-map.interface';
 import { FrequencyMap } from '../interface/frequency-map.interface';
 import { KaijuMap } from '../interface/kaiju-map.interface';
-import { WizardSummary } from '../interface/kaiju-summary.interface';
+import { KaijuSummary } from '../interface/kaiju-summary.interface';
 import { NestedFrequencyMap } from '../interface/nested-frequency-map.interface';
-import { TraitAffinityMap } from '../interface/trait-affinity-map.interface';
 import { TraitMap } from '../interface/trait-map.interface';
 import { RootStore } from './RootStore';
 
@@ -14,11 +12,8 @@ export class KaijuStore {
   public totalKaijus: number;
   public traitOccurences: FrequencyMap;
   public traitCounts: FrequencyMap;
-  public affinityOccurences: FrequencyMap;
   public kaijus: KaijuMap;
   public traitMap: TraitMap;
-  public traitsToAffinity: TraitAffinityMap;
-  public affinityToTraits: AffinityMap;
 
   constructor(store: RootStore) {
     this.store = store;
@@ -26,15 +21,11 @@ export class KaijuStore {
     this.totalKaijus = summary.totalKaijus;
     this.traitOccurences = summary.traitOccurences;
     this.traitCounts = summary.traitCounts;
-    this.affinityOccurences = summary.affinityOccurences;
     this.kaijus = summary.kaijus;
     this.traitMap = summary.traitMap;
-    this.traitsToAffinity = summary.traitsToAffinity;
-    this.affinityToTraits = summary.affinityToTraits;
   }
 
-  private evaluateSummary(): WizardSummary {
-    const affinityToTraits: AffinityMap = {};
+  private evaluateSummary(): KaijuSummary {
     const traitCounts: FrequencyMap = {};
     const traitOccurences: FrequencyMap = {};
 
@@ -65,9 +56,6 @@ export class KaijuStore {
       traitCounts: traitCounts,
       totalKaijus: kaijuList.length,
       traitMap: this.generateTraitMap(traitOccurence),
-      affinityOccurences: {},
-      traitsToAffinity: {},
-      affinityToTraits,
       kaijus: evaluateKaijus,
     };
   }

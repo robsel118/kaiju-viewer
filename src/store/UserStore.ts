@@ -50,7 +50,7 @@ export class UserStore {
             }
             return a.rank - b.rank;
           });
-        this.store.ranks.updateUserWizards();
+        // this.store.ranks.updateUserWizards();
       }
     }
   });

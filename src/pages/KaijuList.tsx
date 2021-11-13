@@ -79,7 +79,8 @@ const KaijuList = observer(() => {
 
   useEffect(() => {
     setPage(0);
-  }, [ranks.showUser, ranks.filter]);
+    // }, [ranks.showUser, ranks.filter]);
+  }, [ranks.filter]);
 
   return (
     <div className={classes.itemContainer}>

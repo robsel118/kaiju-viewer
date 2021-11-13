@@ -1,23 +1,12 @@
-import {
-  AppBar,
-  Avatar,
-  Button,
-  Collapse,
-  Container,
-  IconButton,
-  makeStyles,
-  Toolbar,
-  Typography,
-} from '@material-ui/core';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import FlashOnIcon from '@material-ui/icons/FlashOn';
+import { AppBar, Container, makeStyles, Toolbar, Typography } from '@material-ui/core';
+// import FilterListIcon from '@material-ui/icons/FilterList';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 import { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { StoreContext } from '../store/StoreContext';
 import { viewerTheme } from '../viewer.utils';
-import KaijuFilterOptions from './KaijuFilterOptions';
+// import KaijuFilterOptions from './KaijuFilterOptions';
 import SearchBar, { SearchHandler } from './SearchBar';
 
 const useStlyes = makeStyles((theme) => ({
@@ -105,20 +94,17 @@ const KaijuBar = observer((): JSX.Element | null => {
   const location = useLocation();
   const store = useContext(StoreContext);
   const classes = useStlyes(viewerTheme);
-  const { ranks, user, state } = store;
-  const { affinityOccurences, traitMap } = ranks;
+  // const { ranks, user, state } = store;
+  const { ranks, state } = store;
+  const { traitMap } = ranks;
 
-  let kaijuCount = 0;
-  let avatarImage = undefined;
-  if (user.kaijus && user.kaijus.length > 0) {
-    kaijuCount = user.kaijus.length;
-    avatarImage = user.kaijus[0].image;
-  }
-  const haskaijus = kaijuCount > 0;
-
-  const affinityOptions = Object.entries(affinityOccurences)
-    .sort((a, b) => b[1] - a[1])
-    .map((e) => e[0]);
+  // const kaijuCount = 0;
+  // const avatarImage = undefined;
+  // if (user.kaijus && user.kaijus.length > 0) {
+  //   kaijuCount = user.kaijus.length;
+  //   avatarImage = user.kaijus[0].image;
+  // }
+  // const haskaijus = kaijuCount > 0;
 
   const traitReverseLookup = Object.fromEntries(Object.entries(traitMap).map((trait) => [trait[1], trait[0]]));
   const traitOptions = Object.entries(traitMap)
@@ -138,14 +124,6 @@ const KaijuBar = observer((): JSX.Element | null => {
     state.setTrait(Number(traitReverseLookup[val]));
   };
 
-  const handleAffinitySearch: SearchHandler = (_e, val): void => {
-    if (!val) {
-      return;
-    }
-    const [_affinity, id] = val.split(' ');
-    state.setAffinity(Number(id));
-  };
-
   return (
     <div className={classes.appBarContainer}>
       <div className={clsx(classes.titleContainer, classes.baseContainer)}>
@@ -153,7 +131,7 @@ const KaijuBar = observer((): JSX.Element | null => {
           <img src={'./assets/KaijuKingz-logo.png'} className={classes.titleIcon} />
           <Typography variant="h4">KaijuKingz viewer</Typography>
         </div>
-        {!user.wallet && (
+        {/* {!user.wallet && (
           <Button variant="contained" color="secondary" startIcon={<FlashOnIcon />} onClick={user.connect}>
             Connect
           </Button>
@@ -176,26 +154,28 @@ const KaijuBar = observer((): JSX.Element | null => {
             </div>
             {haskaijus && <Avatar alt={'Profile Avatar'} src={avatarImage} className={classes.avatar} />}
           </div>
-        )}
+        )} */}
       </div>
       <AppBar position="static">
         <Toolbar className={classes.toolbarContainer}>
           <div className={classes.listOptions}>
             <Link to="/" className={classes.routerLink}>
-              <Typography align="center" variant="h6" className={classes.link} onClick={() => ranks.setShowUser(false)}>
+              {/* <Typography align="center" variant="h6" className={classes.link} onClick={() => ranks.setShowUser(false)}> */}
+              <Typography align="center" variant="h6" className={classes.link}>
                 Ranks
               </Typography>
             </Link>
-            <Link to="/" className={classes.routerLink}>
+            {/* <Link to="/" className={classes.routerLink}>
               <Typography
                 align="center"
                 variant="h6"
                 className={clsx(classes.filterIcon, classes.link)}
+                // onClick={() => ranks.setShowUser(true)}
                 onClick={() => ranks.setShowUser(true)}
               >
                 My Kaijus
               </Typography>
-            </Link>
+            </Link> */}
             <Link to="/affinities" className={classes.routerLink}>
               <Typography align="center" variant="h6" className={clsx(classes.filterIcon, classes.link)}>
                 Affinities
@@ -210,28 +190,22 @@ const KaijuBar = observer((): JSX.Element | null => {
           {location.pathname === '/' && (
             <div className={classes.buttonContainer}>
               <SearchBar options={ranks.searchOptions} handleChange={(_e, val) => ranks.search(val ?? undefined)} />
-              <IconButton
+              {/* <IconButton
                 color="inherit"
                 onClick={() => state.setShowFilter(!state.showFilter)}
                 className={classes.filterButton}
               >
                 <FilterListIcon />
-              </IconButton>
+              </IconButton> */}
             </div>
-          )}
-          {location.pathname === '/affinities' && (
-            <SearchBar
-              options={affinityOptions.map((affinity) => `Affinity ${affinity}`)}
-              handleChange={handleAffinitySearch}
-            />
           )}
           {location.pathname === '/traits' && <SearchBar options={traitOptions} handleChange={handleTraitSearch} />}
         </Toolbar>
       </AppBar>
       <Container>
-        <Collapse in={state.showFilter}>
+        {/* <Collapse in={state.showFilter}>
           <KaijuFilterOptions />
-        </Collapse>
+        </Collapse> */}
       </Container>
     </div>
   );
