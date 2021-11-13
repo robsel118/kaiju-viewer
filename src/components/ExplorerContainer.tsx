@@ -3,6 +3,9 @@ import { viewerTheme } from '../viewer.utils';
 
 const useStyles = makeStyles((theme) => ({
   explorerWindow: {
+    [theme.breakpoints.down('sm')]: {
+      border: '8px solid #748C7B',
+    },
     border: '12px solid #748C7B',
     background: '#FFF',
     clipPath: `polygon(0% 14px, 14px 14px, 14px 0%, calc(100% - 14px) 0%, calc(100% - 14px) 14px, 100% 14px, 100% 100%, 0 100%)`,
@@ -32,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
   },
   explorerContent: {
     padding: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(0.5),
+    },
   },
   title: {
     fontFamily: 'KaijuKingz',

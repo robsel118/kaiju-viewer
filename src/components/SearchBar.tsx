@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { viewerTheme } from '../viewer.utils';
 
 const useStlyes = makeStyles((theme) => ({
-  search: {
+  searchWrappper: {
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
     '&:hover': {
@@ -20,6 +20,9 @@ const useStlyes = makeStyles((theme) => ({
   },
   searchBox: {
     width: '225px',
+  },
+  inputRoot: {
+    color: '#FFF',
   },
 }));
 
@@ -45,14 +48,16 @@ const SearchBar = observer((props: SearchBarProps): JSX.Element => {
 
   return (
     <div className={classes.searchContainer}>
-      <div className={classes.search}>
+      <div className={classes.searchWrappper}>
         <Autocomplete
           id="kaiju-filter"
           blurOnSelect
+          classes={classes}
           freeSolo
           options={options}
           getOptionLabel={optionLabelFallback}
           onChange={handleChange}
+          style={{ color: '#FFF' }}
           renderInput={(params) => (
             <TextField
               {...params}

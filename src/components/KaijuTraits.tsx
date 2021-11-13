@@ -9,8 +9,6 @@ const useStyles = makeStyles((theme) => ({
   traitsPaper: {
     padding: theme.spacing(2),
     marginBottom: theme.spacing(1),
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
     backgroundColor: '#5c64ac',
     display: 'flex',
     justifyContent: 'space-around',
@@ -44,15 +42,22 @@ function WizardTrait(props: TraitProps): JSX.Element {
   const classes = useStyles(viewerTheme);
   const store = useContext(StoreContext);
 
-  const { descriptor, typeDisplay, name, trait } = props;
+  const { descriptor, typeDisplay, trait } = props;
   const { ranks } = store;
+  const traitName = trait.toLowerCase();
   return (
     <div className={classes.traitContainer}>
-      <Typography variant="caption">{`${descriptor} ${typeDisplay}`}</Typography>
-      <Typography variant="body1" onClick={() => ranks.search(trait)} className={classes.searchCursor}>
-        {name}
+      <Typography variant="caption">{`${descriptor} \n ${typeDisplay}`}</Typography>
+      <br />
+      <Typography
+        variant="caption"
+        onClick={() => ranks.search(`${typeDisplay}: ${trait}`)}
+        className={classes.searchCursor}
+      >
+        {trait}
       </Typography>
-      <Typography variant="caption">{`${ranks.getRarityOccurence(trait)} of 10,000`}</Typography>
+      <br />
+      <Typography variant="caption">{`${ranks.getRarityOccurence(traitName)} of 3333`}</Typography>
     </div>
   );
 }
@@ -66,7 +71,7 @@ export default function WizardTraits(props: WizardTraitProps): JSX.Element {
     <Paper className={classes.traitsPaper}>
       {kaiju.traits.map((entry, j) => {
         const traitName = entry.trait_type;
-        const traitValue = entry.value;
+        const traitValue = entry.value.toLowerCase();
 
         const typeDisplay = traitName;
         const occurrence = ranks.getRarityOccurence(traitValue);
@@ -79,7 +84,7 @@ export default function WizardTraits(props: WizardTraitProps): JSX.Element {
             typeDisplay={typeDisplay}
             occurrence={occurrence}
             name={kaiju.name}
-            trait={traitName}
+            trait={entry.value}
           />
         );
       })}

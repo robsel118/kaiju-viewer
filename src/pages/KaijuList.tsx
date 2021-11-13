@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
   list: {
     flexGrow: 2,
   },
+  color: {
+    color: '#000',
+  },
 }));
 
 const KaijuList = observer(() => {
@@ -63,6 +66,9 @@ const KaijuList = observer(() => {
           <div className={clsx(classes.itemContainer, classes.centerContainer)}>
             <TablePagination
               labelRowsPerPage={isMobile ? 'Rows:' : 'Rows per page:'}
+              classes={{
+                root: classes.color,
+              }}
               component="div"
               count={ranks.display.length}
               page={page}

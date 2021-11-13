@@ -6,7 +6,6 @@ import {
   ListItemAvatar,
   ListItemText,
   makeStyles,
-  Paper,
   useMediaQuery,
 } from '@material-ui/core';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -21,8 +20,11 @@ import KaijuTraits from './KaijuTraits';
 
 const useStyles = makeStyles((theme) => ({
   kaijuListItem: {
-    backgroundColor: '#859d92',
+    backgroundColor: '#748C7B',
     justifyContent: 'space-between',
+    '&:hover': {
+      backgroundColor: '#859d92',
+    },
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
     },
@@ -87,14 +89,7 @@ const KaijuListItem = observer((props: KaijuListItemProps): JSX.Element => {
 
   return (
     <>
-      <ListItem
-        dense
-        divider
-        button
-        component={Paper}
-        className={classes.kaijuListItem}
-        onClick={() => state.setKaiju(rank)}
-      >
+      <ListItem dense divider button className={classes.kaijuListItem} onClick={() => state.setKaiju(rank)}>
         <div className={clsx(classes.baseContainer, classes.kaijuContainer)}>
           <ListItemText primary={`${virtualRank}.`} className={classes.rank} />
           <ListItemAvatar>
@@ -103,7 +98,6 @@ const KaijuListItem = observer((props: KaijuListItemProps): JSX.Element => {
           <ListItemText primary={kaiju.name} secondary={`Token ID: ${kaiju.tokenId}`} />
         </div>
         <div className={classes.baseContainer}>
-          <ListItemText primary={``} secondary={`${kaiju.traitCount - 1} traits`} className={classes.infoItem} />
           <ListItemText
             primary={`${traitCountRarity} Trait Count`}
             secondary={`${kaiju.traitCount} traits`}

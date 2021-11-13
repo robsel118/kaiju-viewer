@@ -47,13 +47,13 @@ export const viewerTheme = createMuiTheme({
       paper: '#1c3b4b',
     },
     text: {
-      primary: '#000',
-      secondary: '#000',
+      primary: '#FFF',
+      secondary: '#FFF',
     },
   },
   typography: {
     fontFamily: ['Montserrat', 'KaijuKingz'].join(', '),
-    fontSize: 12,
+    fontSize: 14,
   },
   overrides: {
     MuiCssBaseline: {

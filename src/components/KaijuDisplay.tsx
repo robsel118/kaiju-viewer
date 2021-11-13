@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
   rarity: {
     paddingTop: theme.spacing(-0.25),
+    fontWeight: 700,
   },
   infoContainer: {
     overflow: 'auto',
@@ -151,7 +152,7 @@ const KaijuDisplay = observer((): JSX.Element | null => {
                     <Typography variant="body2" align="left">
                       {traitType.charAt(0).toUpperCase() + traitType.slice(1)} ({traitCount})
                     </Typography>
-                    <Typography variant="caption" align="left" style={traitStyle} className={classes.rarity}>
+                    <Typography variant="body2" align="left" style={traitStyle} className={classes.rarity}>
                       {traitRarity}
                     </Typography>
                   </div>
@@ -161,104 +162,6 @@ const KaijuDisplay = observer((): JSX.Element | null => {
                 </div>
               );
             })}
-          </div>
-          {/* <Typography variant="body1" align="center" style={maxAffinityStyle}>
-            {maxAffinityDescriptor} Affinity
-          </Typography> */}
-          {/* <Typography variant="body2" align="center" className={classes.section}>
-            {affinityPercentage.toFixed()}% Attuned (id: {kaiju.maxAffinity})
-          </Typography> */}
-          <div className={classes.section}>
-            {/* {hasAffinities &&
-              Object.entries(affinities)
-                .sort((a, b) => {
-                  if (a[1] === b[1]) {
-                    return affinityOccurences[a[0]] - affinityOccurences[b[0]];
-                  }
-                  return b[1] - a[1];
-                })
-                .map((entry) => {
-                  const [key, value] = entry;
-                  const affinity = Number(key);
-                  const affinityRarity = getAffinityRarityDescriptor(ranks.getAffinityRarity(affinity));
-                  const affinityColor = getRarityColor(ranks.getAffinityRarity(affinity));
-                  const affinityStyle = { color: affinityColor };
-                  const percentageColor = value === 5 ? '#ec3fa8' : 'inherit';
-                  const percentageStyle = { color: percentageColor };
-                  return (
-                    <div key={`affinity-${key}`} className={classes.traitItem}>
-                      <div className={classes.descriptor}>
-                        <Typography variant="body2" align="left" style={percentageStyle}>
-                          Affinity {key} ({affinityOccurences[key]})
-                        </Typography>
-                        <Typography variant="caption" align="left" style={affinityStyle}>
-                          {affinityRarity}
-                        </Typography>
-                      </div>
-                      <Typography variant="body2" align="right" style={percentageStyle}>
-                        {value} / {kaiju.traitCount - 1} traits
-                      </Typography>
-                    </div>
-                  );
-                })} */}
-            {/* <div className={clsx(classes.flexContainer, classes.rankContainer, classes.section)}>
-              {!hasAffinities && (
-                <Typography variant="body2" align="center" className={classes.section}>
-                  0 notable affinities
-                </Typography>
-              )}
-              {otherAffinities > 0 && (
-                <Typography variant="body2" align="center">
-                  {otherAffinities} other {otherAffinities > 1 ? 'affinities' : 'affinity'}
-                </Typography>
-              )}
-            </div> */}
-            {ranks.custom && kaiju.score && (
-              <>
-                <Typography variant="body1" align="center" className={classes.section}>
-                  Score Breakdown
-                </Typography>
-                <div className={classes.traitItem}>
-                  <div className={classes.descriptor}>
-                    <Typography variant="body2" align="left">
-                      Trait Score
-                    </Typography>
-                    <Typography variant="caption" align="left" className={classes.rarity}>
-                      Trait Percentile
-                    </Typography>
-                  </div>
-                  <Typography variant="h6" align="right">
-                    {kaiju.score.trait.toFixed(2)}
-                  </Typography>
-                </div>
-                <div className={classes.traitItem}>
-                  <div className={classes.descriptor}>
-                    <Typography variant="body2" align="left">
-                      Affinity Score
-                    </Typography>
-                    <Typography variant="caption" align="left" className={classes.rarity}>
-                      Trait Percentile
-                    </Typography>
-                  </div>
-                  {/* <Typography variant="h6" align="right">
-                    {kaiju.score.affinity.toFixed(2)}
-                  </Typography> */}
-                </div>
-                <div className={classes.traitItem}>
-                  <div className={classes.descriptor}>
-                    <Typography variant="body2" align="left">
-                      Name Score
-                    </Typography>
-                    <Typography variant="caption" align="left" className={classes.rarity}>
-                      Trait Percentile
-                    </Typography>
-                  </div>
-                  {/* <Typography variant="h6" align="right">
-                    {kaiju.score.name.toFixed(2)}
-                  </Typography> */}
-                </div>
-              </>
-            )}
           </div>
         </div>
       </Paper>

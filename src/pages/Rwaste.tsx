@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
   textItem: {
     marginBottom: theme.spacing(3),
+    color: '#000',
   },
   itemContainer: {
     marginTop: theme.spacing(2),
@@ -50,6 +51,8 @@ const useStyles = makeStyles((theme) => ({
   header: {
     fontFamily: 'KaijuKingz',
     lineHeight: 2,
+    color: '#000',
+    textDecoration: 'underline',
   },
 }));
 
