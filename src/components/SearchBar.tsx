@@ -47,7 +47,7 @@ const SearchBar = observer((props: SearchBarProps): JSX.Element => {
     <div className={classes.searchContainer}>
       <div className={classes.search}>
         <Autocomplete
-          id="wizard-filter"
+          id="kaiju-filter"
           blurOnSelect
           freeSolo
           options={options}
@@ -60,7 +60,7 @@ const SearchBar = observer((props: SearchBarProps): JSX.Element => {
               variant="outlined"
               size="small"
               InputLabelProps={{
-                style: { color: '#000' },
+                style: { color: '#FFF' },
               }}
             />
           )}

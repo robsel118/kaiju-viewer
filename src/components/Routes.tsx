@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import { Route, Switch } from 'react-router-dom';
 import KaijuList from '../pages/KaijuList';
-import Traits from '../pages/Traits';
+import Rwaste from '../pages/Rwaste';
 import { viewerTheme } from '../viewer.utils';
 
 const useStyles = makeStyles((theme) => ({
@@ -59,8 +59,8 @@ export default function Routes(): JSX.Element {
         <Route exact path="/">
           <KaijuList />
         </Route>
-        <Route path="/traits">
-          <Traits />
+        <Route path="/rwaste">
+          <Rwaste />
         </Route>
       </Switch>
     </div>

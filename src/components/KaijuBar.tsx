@@ -176,14 +176,9 @@ const KaijuBar = observer((): JSX.Element | null => {
                 My Kaijus
               </Typography>
             </Link> */}
-            <Link to="/affinities" className={classes.routerLink}>
+            <Link to="/rwaste" className={classes.routerLink}>
               <Typography align="center" variant="h6" className={clsx(classes.filterIcon, classes.link)}>
-                Affinities
-              </Typography>
-            </Link>
-            <Link to="/traits" className={classes.routerLink}>
-              <Typography align="center" variant="h6" className={clsx(classes.filterIcon, classes.link)}>
-                Traits
+                Rwaste
               </Typography>
             </Link>
           </div>

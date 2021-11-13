@@ -17,7 +17,7 @@ export class StateStore {
 
   setShowFilter = action((showFilter: boolean) => (this.showFilter = showFilter));
 
-  setWizard = action((kaiju?: number) => {
+  setKaiju = action((kaiju?: number) => {
     if (this.kaiju === kaiju) {
       this.kaiju = undefined;
     } else {

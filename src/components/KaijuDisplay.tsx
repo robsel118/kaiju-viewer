@@ -122,7 +122,7 @@ const KaijuDisplay = observer((): JSX.Element | null => {
                 Rank
               </Typography>
               <Typography variant="caption" align="center">
-                {kaiju.rank}
+                {kaiju.virtualRank}
               </Typography>
             </div>
             <div className={classes.rankDisplay}>

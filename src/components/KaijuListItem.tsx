@@ -17,17 +17,17 @@ import { baseUrl, ref } from '../config/constants';
 import { KaijuData } from '../interface/kaiju-data.interface';
 import { StoreContext } from '../store/StoreContext';
 import { getRarityDescriptor, viewerTheme } from '../viewer.utils';
-import WizardTraits from './KaijuTraits';
+import KaijuTraits from './KaijuTraits';
 
 const useStyles = makeStyles((theme) => ({
-  wizardListItem: {
+  kaijuListItem: {
     backgroundColor: '#859d92',
     justifyContent: 'space-between',
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
     },
   },
-  wizardListContainer: {
+  kaijuListContainer: {
     marginBottom: theme.spacing(4),
   },
   rank: {
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
     },
   },
-  wizardContainer: {
+  kaijuContainer: {
     minWidth: '100px',
     [theme.breakpoints.down('sm')]: {
       display: 'flex',
@@ -70,11 +70,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export interface WizardListItemProps {
+export interface KaijuListItemProps {
   kaiju: KaijuData;
 }
 
-const WizardListItem = observer((props: WizardListItemProps): JSX.Element => {
+const KaijuListItem = observer((props: KaijuListItemProps): JSX.Element => {
   const isMobile = useMediaQuery(viewerTheme.breakpoints.down('sm'));
   const classes = useStyles();
   const { kaiju } = props;
@@ -92,15 +92,15 @@ const WizardListItem = observer((props: WizardListItemProps): JSX.Element => {
         divider
         button
         component={Paper}
-        className={classes.wizardListItem}
-        onClick={() => state.setWizard(rank)}
+        className={classes.kaijuListItem}
+        onClick={() => state.setKaiju(rank)}
       >
-        <div className={clsx(classes.baseContainer, classes.wizardContainer)}>
+        <div className={clsx(classes.baseContainer, classes.kaijuContainer)}>
           <ListItemText primary={`${virtualRank}.`} className={classes.rank} />
           <ListItemAvatar>
             <Avatar alt={`${kaiju.name} Avatar`} src={kaiju.image} />
           </ListItemAvatar>
-          <ListItemText primary={kaiju.name} secondary={`Serial: ${kaiju.tokenId}`} />
+          <ListItemText primary={kaiju.name} secondary={`Token ID: ${kaiju.tokenId}`} />
         </div>
         <div className={classes.baseContainer}>
           <ListItemText primary={``} secondary={`${kaiju.traitCount - 1} traits`} className={classes.infoItem} />
@@ -118,11 +118,11 @@ const WizardListItem = observer((props: WizardListItemProps): JSX.Element => {
       </ListItem>
       {isMobile && (
         <Collapse key={`collapse-${kaiju.rank}`} in={state.kaiju === rank} unmountOnExit>
-          <WizardTraits kaiju={kaiju} />
+          <KaijuTraits kaiju={kaiju} />
         </Collapse>
       )}
     </>
   );
 });
 
-export default WizardListItem;
+export default KaijuListItem;

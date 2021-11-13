@@ -95,10 +95,17 @@ export class RankStore extends KaijuStore {
       // match ranking / serial number look ups
       let serialMatch = false;
       let rankMatch = false;
+      const virtualRankMatch = false;
+
       if (!isNaN(parseFloat(localFilter))) {
         const numericFilter = Number(localFilter);
         serialMatch = Number(kaiju.tokenId) === numericFilter;
         rankMatch = kaiju.rank === numericFilter;
+      }
+      if (!isNaN(parseFloat(localFilter))) {
+        const numericFilter = Number(localFilter);
+        serialMatch = Number(kaiju.tokenId) === numericFilter;
+        rankMatch = kaiju.virtualRank === numericFilter;
       }
 
       // match trait count look up
@@ -110,7 +117,7 @@ export class RankStore extends KaijuStore {
         }
       } catch {}
 
-      return nameMatch || traitMatch || rankMatch || serialMatch || traitCountMatches;
+      return nameMatch || traitMatch || rankMatch || serialMatch || traitCountMatches || virtualRankMatch;
     });
   }
 
@@ -199,7 +206,7 @@ export class RankStore extends KaijuStore {
   // });
 
   search = action((filter?: string) => {
-    this.store.state.setWizard(undefined);
+    this.store.state.setKaiju(undefined);
     this.filter = filter;
   });
 }
