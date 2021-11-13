@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
   flexContainer: {
     display: 'flex',
     justifyContent: 'space-around',
+    alignItems: 'flex-start',
     gap: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
       display: 'block',

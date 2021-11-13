@@ -53,6 +53,7 @@ const useStlyes = makeStyles((theme) => ({
     '&:hover': {
       cursor: 'pointer',
     },
+    fontFamily: 'KaijuKingz',
   },
   accountContainer: {
     display: 'flex',
@@ -178,7 +179,7 @@ const KaijuBar = observer((): JSX.Element | null => {
             </Link> */}
             <Link to="/rwaste" className={classes.routerLink}>
               <Typography align="center" variant="h6" className={clsx(classes.filterIcon, classes.link)}>
-                Rwaste
+                RWASTE
               </Typography>
             </Link>
           </div>

@@ -17,14 +17,12 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: 'no-repeat',
   },
   spriteContainer: {
-    marginTop: theme.spacing(1),
     height: 'auto',
     width: '100%',
     maxWidth: '250px',
-    marginBottom: 'auto',
+    marginBottom: 0,
   },
   traitContainer: {
-    marginTop: theme.spacing(2),
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
