@@ -93,8 +93,8 @@ export class RankStore extends KaijuStore {
       const localFilter = this.filter;
 
       // match exact words / partials
-      const nameMatch = kaiju.name.toLowerCase().includes(localFilter);
-      const traitMatch = kaiju.traits.some((trait) => trait.value.toLowerCase().includes(localFilter.split(': ')[1]));
+      const nameMatch = kaiju.name.includes(localFilter);
+      const traitMatch = kaiju.traits.some((trait) => trait.value.includes(localFilter.split(': ')[1]));
 
       // match ranking / serial number look ups
       let serialMatch = false;
@@ -116,7 +116,7 @@ export class RankStore extends KaijuStore {
       let traitCountMatches = false;
       try {
         const [traitCount, maybeTraits] = localFilter.split(' ');
-        if (!isNaN(parseFloat(traitCount)) && maybeTraits.toLowerCase() === 'traits') {
+        if (!isNaN(parseFloat(traitCount)) && maybeTraits === 'traits') {
           traitCountMatches = kaiju.traitCount === Number(traitCount);
         }
       } catch {}
@@ -144,7 +144,7 @@ export class RankStore extends KaijuStore {
   }
 
   private getTraitsRarity(kaiju: KaijuData, primary: boolean): number {
-    const traits = kaiju.traits.map((trait) => this.getRarity(trait.value.toLowerCase())).sort((a, b) => a - b);
+    const traits = kaiju.traits.map((trait) => this.getRarity(trait.value)).sort((a, b) => a - b);
     let evaluated: number[] = [];
     if (primary) {
       evaluated = traits.slice(0, 3);
@@ -183,7 +183,7 @@ export class RankStore extends KaijuStore {
   }
 
   getRarityOccurence(trait: string) {
-    return this.traitOccurences[trait.toLowerCase()];
+    return this.traitOccurences[trait];
   }
 
   getCountRarity(count: number): number {

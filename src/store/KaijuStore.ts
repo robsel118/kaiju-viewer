@@ -1,9 +1,8 @@
 import kaijuList from '../data/kaijus.json';
-import traitOccurence from '../data/traits.json';
+import traitOccurences from '../data/traits.json';
 import { FrequencyMap } from '../interface/frequency-map.interface';
 import { KaijuMap } from '../interface/kaiju-map.interface';
 import { KaijuSummary } from '../interface/kaiju-summary.interface';
-import { NestedFrequencyMap } from '../interface/nested-frequency-map.interface';
 import { TraitMap } from '../interface/trait-map.interface';
 import { RootStore } from './RootStore';
 
@@ -27,8 +26,7 @@ export class KaijuStore {
 
   private evaluateSummary(): KaijuSummary {
     const traitCounts: FrequencyMap = {};
-    const traitOccurences: FrequencyMap = {};
-
+    const traitLabels: string[] = [];
     const evaluateKaijus: KaijuMap = Object.fromEntries(
       kaijuList.map((kaiju) => {
         const { name, tokenId, attributes, image, description } = kaiju;
@@ -40,22 +38,16 @@ export class KaijuStore {
           image,
           description,
         };
+        traitLabels.push(...attributes.map((trait) => `${trait.trait_type}: ${trait.value}`));
         this.count(traitCounts, attributes.length);
         return [kaiju.tokenId, data];
       }),
     );
-
-    Object.values(traitOccurence).reduce((acc, trait) => {
-      Object.entries(trait).forEach(([key, value]) => {
-        acc[key] = value;
-      });
-      return acc;
-    }, traitOccurences);
     return {
       traitOccurences,
       traitCounts: traitCounts,
       totalKaijus: kaijuList.length,
-      traitMap: this.generateTraitMap(traitOccurence),
+      traitMap: this.generateTraitMap(traitLabels),
       kaijus: evaluateKaijus,
     };
   }
@@ -66,14 +58,13 @@ export class KaijuStore {
     }
     map[key] += 1;
   }
-  private generateTraitMap(map: NestedFrequencyMap) {
+  private generateTraitMap(map: string[]) {
     const traitMap = {} as TraitMap;
-    let index = 0;
-    for (const [key, value] of Object.entries(map)) {
-      for (const keyValue of Object.keys(value)) {
-        traitMap[(index++).toString()] = `${key}: ${keyValue}`;
-      }
-    }
+    const uniqueTraitList = [...new Set(map)];
+    uniqueTraitList.forEach((value, index) => {
+      traitMap[index.toString()] = value;
+    });
+
     return traitMap;
   }
 }

@@ -44,7 +44,7 @@ function KaijuTrait(props: TraitProps): JSX.Element {
 
   const { descriptor, typeDisplay, trait } = props;
   const { ranks } = store;
-  const traitName = trait.toLowerCase();
+  const traitName = trait;
   return (
     <div className={classes.traitContainer}>
       <Typography variant="caption">{`${descriptor} \n ${typeDisplay}`}</Typography>
@@ -71,7 +71,7 @@ export default function KaijuTraits(props: KaijuTraitProps): JSX.Element {
     <Paper className={classes.traitsPaper}>
       {kaiju.traits.map((entry, j) => {
         const traitName = entry.trait_type;
-        const traitValue = entry.value.toLowerCase();
+        const traitValue = entry.value;
 
         const typeDisplay = traitName;
         const occurrence = ranks.getRarityOccurence(traitValue);

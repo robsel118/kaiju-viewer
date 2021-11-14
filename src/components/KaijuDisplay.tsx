@@ -139,7 +139,7 @@ const KaijuDisplay = observer((): JSX.Element | null => {
           <div className={classes.section}>
             {kaiju.traits.map((trait, i) => {
               const traitType = trait.trait_type;
-              const traitName = trait.value.toLowerCase();
+              const traitName = trait.value;
               const traitRarity = getRarityDescriptor(ranks.getRarity(traitName));
               const traitColor = getRarityColor(ranks.getRarity(traitName));
               const traitStyle = { color: traitColor };
