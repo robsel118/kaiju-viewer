@@ -1,7 +1,7 @@
 import { ethers, Signer } from 'ethers';
 import { action, extendObservable } from 'mobx';
 import { wizardsAddress } from '../config/constants';
-import { Wizards__factory } from '../contracts';
+import { Kaijus__factory } from '../contracts';
 import { KaijuData } from '../interface/kaiju-data.interface';
 import { RootStore } from './RootStore';
 
@@ -38,24 +38,26 @@ export class UserStore {
         const provider = new ethers.providers.Web3Provider(app.ethereum);
         this.wallet = await provider.getSigner();
         this.address = await this.wallet.getAddress();
-        const wizardContract = Wizards__factory.connect(wizardsAddress, this.wallet);
-        const wizardIds = await wizardContract.tokensOfOwner(this.address);
-        this.collection = wizardIds.map((id) => Number(id.toString()));
-        const collection = wizardIds.map((id) => id.toString());
-        this.kaijus = collection
-          .map((id) => this.store.ranks.kaijus[id])
-          .sort((a, b) => {
-            if (!a.rank || !b.rank) {
-              return 0;
-            }
-            return a.rank - b.rank;
-          });
-        // this.store.ranks.updateUserWizards();
+        if (this.address && this.wallet) {
+          const kaijuContract = Kaijus__factory.connect(wizardsAddress, this.wallet);
+          const kaijuIds = await kaijuContract.walletOfOwner(this.address);
+          this.collection = kaijuIds.map((id) => Number(id.toString()));
+          const collection = kaijuIds.map((id) => id.toString());
+          this.kaijus = collection
+            .map((id) => this.store.ranks.kaijus[id])
+            .sort((a, b) => {
+              if (!a.rank || !b.rank) {
+                return 0;
+              }
+              return a.rank - b.rank;
+            });
+          this.store.ranks.updateUserKaijus();
+        }
       }
     }
   });
 
-  updateWizards = action((kaijus: KaijuData[]): void => {
+  updateKaijus = action((kaijus: KaijuData[]): void => {
     this.kaijus = kaijus;
   });
 }

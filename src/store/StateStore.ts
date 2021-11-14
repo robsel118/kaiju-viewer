@@ -18,11 +18,7 @@ export class StateStore {
   setShowFilter = action((showFilter: boolean) => (this.showFilter = showFilter));
 
   setKaiju = action((kaiju?: number) => {
-    if (this.kaiju === kaiju) {
-      this.kaiju = undefined;
-    } else {
-      this.kaiju = kaiju;
-    }
+    this.kaiju = kaiju;
   });
 
   setAffinity = action((affinity: number) => (this.affinity = affinity));

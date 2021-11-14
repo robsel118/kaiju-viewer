@@ -81,7 +81,7 @@ const KaijuDisplay = observer((): JSX.Element | null => {
     } else {
       setKaiju(displayRanking[random]);
     }
-  }, [state.kaiju, displayRanking]);
+  }, [state.kaiju, displayRanking, ranks.showUser]);
 
   const image = kaiju.image;
   const rank = kaiju.rank || Number(kaiju.tokenId);
