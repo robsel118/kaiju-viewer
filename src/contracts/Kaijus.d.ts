@@ -20,69 +20,106 @@ import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
 
-interface WizardsInterface extends ethers.utils.Interface {
+interface KaijusInterface extends ethers.utils.Interface {
   functions: {
-    "MAX_WIZARDS()": FunctionFragment;
-    "METADATA_PROVENANCE_HASH()": FunctionFragment;
-    "R()": FunctionFragment;
+    "BIO_CHANGE_PRICE()": FunctionFragment;
+    "FUSION_PRICE()": FunctionFragment;
+    "KKold()": FunctionFragment;
+    "NAME_CHANGE_PRICE()": FunctionFragment;
+    "RWaste()": FunctionFragment;
+    "airdrop(uint256[])": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
+    "babyCount()": FunctionFragment;
+    "babyKaiju(uint256)": FunctionFragment;
+    "balanceGenesis(address)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
-    "baseURI()": FunctionFragment;
-    "burn(uint256)": FunctionFragment;
-    "forwardERC20s(address,uint256)": FunctionFragment;
+    "changeBio(uint256,string)": FunctionFragment;
+    "changeName(uint256,string)": FunctionFragment;
+    "editPresale(address[],uint256[])": FunctionFragment;
+    "fusion(uint256,uint256)": FunctionFragment;
     "getApproved(uint256)": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
+    "kaijuData(uint256)": FunctionFragment;
+    "maxGenCount()": FunctionFragment;
+    "maxSupply()": FunctionFragment;
+    "mint(uint256)": FunctionFragment;
+    "mintPresale(uint256)": FunctionFragment;
     "name()": FunctionFragment;
     "owner()": FunctionFragment;
     "ownerOf(uint256)": FunctionFragment;
+    "presaleActive()": FunctionFragment;
+    "presaleWhitelist(address)": FunctionFragment;
     "price()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
-    "reserve(uint256)": FunctionFragment;
+    "reveal(uint256)": FunctionFragment;
     "safeTransferFrom(address,address,uint256)": FunctionFragment;
+    "saleActive()": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
     "setBaseURI(string)": FunctionFragment;
+    "setKKold(address)": FunctionFragment;
     "setPrice(uint256)": FunctionFragment;
-    "setProvenanceHash(string)": FunctionFragment;
-    "setSummonStartBlock(uint256)": FunctionFragment;
-    "setVault(address)": FunctionFragment;
-    "summon(uint256)": FunctionFragment;
-    "summonStartBlock()": FunctionFragment;
-    "summonStarted()": FunctionFragment;
+    "setRadioactiveWaste(address)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "symbol()": FunctionFragment;
+    "togglePresale()": FunctionFragment;
+    "toggleSale()": FunctionFragment;
     "tokenByIndex(uint256)": FunctionFragment;
     "tokenOfOwnerByIndex(address,uint256)": FunctionFragment;
     "tokenURI(uint256)": FunctionFragment;
-    "tokensOfOwner(address)": FunctionFragment;
     "totalSupply()": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
-    "uploadWizardsAttributes(bytes)": FunctionFragment;
-    "uploadWizardsImage(bytes)": FunctionFragment;
-    "vault()": FunctionFragment;
-    "withdraw(uint256)": FunctionFragment;
-    "withdrawAll()": FunctionFragment;
+    "walletOfOwner(address)": FunctionFragment;
+    "withdraw()": FunctionFragment;
   };
 
   encodeFunctionData(
-    functionFragment: "MAX_WIZARDS",
+    functionFragment: "BIO_CHANGE_PRICE",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "METADATA_PROVENANCE_HASH",
+    functionFragment: "FUSION_PRICE",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "R", values?: undefined): string;
+  encodeFunctionData(functionFragment: "KKold", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "NAME_CHANGE_PRICE",
+    values?: undefined
+  ): string;
+  encodeFunctionData(functionFragment: "RWaste", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "airdrop",
+    values: [BigNumberish[]]
+  ): string;
   encodeFunctionData(
     functionFragment: "approve",
     values: [string, BigNumberish]
   ): string;
-  encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
-  encodeFunctionData(functionFragment: "baseURI", values?: undefined): string;
-  encodeFunctionData(functionFragment: "burn", values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: "babyCount", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "forwardERC20s",
-    values: [string, BigNumberish]
+    functionFragment: "babyKaiju",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "balanceGenesis",
+    values: [string]
+  ): string;
+  encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "changeBio",
+    values: [BigNumberish, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "changeName",
+    values: [BigNumberish, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "editPresale",
+    values: [string[], BigNumberish[]]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "fusion",
+    values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getApproved",
@@ -92,11 +129,33 @@ interface WizardsInterface extends ethers.utils.Interface {
     functionFragment: "isApprovedForAll",
     values: [string, string]
   ): string;
+  encodeFunctionData(
+    functionFragment: "kaijuData",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "maxGenCount",
+    values?: undefined
+  ): string;
+  encodeFunctionData(functionFragment: "maxSupply", values?: undefined): string;
+  encodeFunctionData(functionFragment: "mint", values: [BigNumberish]): string;
+  encodeFunctionData(
+    functionFragment: "mintPresale",
+    values: [BigNumberish]
+  ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "ownerOf",
     values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "presaleActive",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "presaleWhitelist",
+    values: [string]
   ): string;
   encodeFunctionData(functionFragment: "price", values?: undefined): string;
   encodeFunctionData(
@@ -104,7 +163,7 @@ interface WizardsInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "reserve",
+    functionFragment: "reveal",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -112,40 +171,36 @@ interface WizardsInterface extends ethers.utils.Interface {
     values: [string, string, BigNumberish]
   ): string;
   encodeFunctionData(
+    functionFragment: "saleActive",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "setApprovalForAll",
     values: [string, boolean]
   ): string;
   encodeFunctionData(functionFragment: "setBaseURI", values: [string]): string;
+  encodeFunctionData(functionFragment: "setKKold", values: [string]): string;
   encodeFunctionData(
     functionFragment: "setPrice",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "setProvenanceHash",
+    functionFragment: "setRadioactiveWaste",
     values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setSummonStartBlock",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(functionFragment: "setVault", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "summon",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "summonStartBlock",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "summonStarted",
-    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "supportsInterface",
     values: [BytesLike]
   ): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "togglePresale",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "toggleSale",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "tokenByIndex",
     values: [BigNumberish]
@@ -159,10 +214,6 @@ interface WizardsInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "tokensOfOwner",
-    values: [string]
-  ): string;
-  encodeFunctionData(
     functionFragment: "totalSupply",
     values?: undefined
   ): string;
@@ -175,40 +226,41 @@ interface WizardsInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
   encodeFunctionData(
-    functionFragment: "uploadWizardsAttributes",
-    values: [BytesLike]
+    functionFragment: "walletOfOwner",
+    values: [string]
   ): string;
-  encodeFunctionData(
-    functionFragment: "uploadWizardsImage",
-    values: [BytesLike]
-  ): string;
-  encodeFunctionData(functionFragment: "vault", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "withdraw",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "withdrawAll",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "withdraw", values?: undefined): string;
 
   decodeFunctionResult(
-    functionFragment: "MAX_WIZARDS",
+    functionFragment: "BIO_CHANGE_PRICE",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "METADATA_PROVENANCE_HASH",
+    functionFragment: "FUSION_PRICE",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "R", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "KKold", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "NAME_CHANGE_PRICE",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "RWaste", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "airdrop", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "baseURI", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "babyCount", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "babyKaiju", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "forwardERC20s",
+    functionFragment: "balanceGenesis",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "changeBio", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "changeName", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "editPresale",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "fusion", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getApproved",
     data: BytesLike
@@ -217,41 +269,48 @@ interface WizardsInterface extends ethers.utils.Interface {
     functionFragment: "isApprovedForAll",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "kaijuData", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "maxGenCount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "maxSupply", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "mintPresale",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "ownerOf", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "presaleActive",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "presaleWhitelist",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "price", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "renounceOwnership",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "reserve", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "reveal", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "safeTransferFrom",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "saleActive", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setApprovalForAll",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "setBaseURI", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "setKKold", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "setPrice", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "setProvenanceHash",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setSummonStartBlock",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "setVault", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "summon", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "summonStartBlock",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "summonStarted",
+    functionFragment: "setRadioactiveWaste",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -259,6 +318,11 @@ interface WizardsInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "togglePresale",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "toggleSale", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "tokenByIndex",
     data: BytesLike
@@ -268,10 +332,6 @@ interface WizardsInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "tokenURI", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "tokensOfOwner",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "totalSupply",
     data: BytesLike
@@ -285,34 +345,33 @@ interface WizardsInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "uploadWizardsAttributes",
+    functionFragment: "walletOfOwner",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "uploadWizardsImage",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "vault", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "withdrawAll",
-    data: BytesLike
-  ): Result;
 
   events: {
     "Approval(address,address,uint256)": EventFragment;
     "ApprovalForAll(address,address,bool)": EventFragment;
+    "BioChanged(uint256,string)": EventFragment;
+    "KaijuFusion(uint256,uint256,uint256)": EventFragment;
+    "KaijuRevealed(uint256)": EventFragment;
+    "NameChanged(uint256,string)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
     "Transfer(address,address,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ApprovalForAll"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "BioChanged"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "KaijuFusion"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "KaijuRevealed"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "NameChanged"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Transfer"): EventFragment;
 }
 
-export class Wizards extends BaseContract {
+export class Kaijus extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -353,14 +412,23 @@ export class Wizards extends BaseContract {
     toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
-  interface: WizardsInterface;
+  interface: KaijusInterface;
 
   functions: {
-    MAX_WIZARDS(overrides?: CallOverrides): Promise<[BigNumber]>;
+    BIO_CHANGE_PRICE(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    METADATA_PROVENANCE_HASH(overrides?: CallOverrides): Promise<[string]>;
+    FUSION_PRICE(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    R(overrides?: CallOverrides): Promise<[string]>;
+    KKold(overrides?: CallOverrides): Promise<[string]>;
+
+    NAME_CHANGE_PRICE(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    RWaste(overrides?: CallOverrides): Promise<[string]>;
+
+    airdrop(
+      kaijuTokens: BigNumberish[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     approve(
       to: string,
@@ -368,18 +436,41 @@ export class Wizards extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    babyCount(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    babyKaiju(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    balanceGenesis(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
     balanceOf(owner: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    baseURI(overrides?: CallOverrides): Promise<[string]>;
-
-    burn(
-      tokenId: BigNumberish,
+    changeBio(
+      kaijuId: BigNumberish,
+      newBio: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    forwardERC20s(
-      _token: string,
-      _amount: BigNumberish,
+    changeName(
+      kaijuId: BigNumberish,
+      newName: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    editPresale(
+      presaleAddresses: string[],
+      amount: BigNumberish[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    fusion(
+      parent1: BigNumberish,
+      parent2: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -394,6 +485,25 @@ export class Wizards extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
+    kaijuData(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string, string] & { name: string; bio: string }>;
+
+    maxGenCount(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    maxSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    mint(
+      numberOfMints: BigNumberish,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    mintPresale(
+      numberOfMints: BigNumberish,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     name(overrides?: CallOverrides): Promise<[string]>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
@@ -403,14 +513,21 @@ export class Wizards extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
+    presaleActive(overrides?: CallOverrides): Promise<[boolean]>;
+
+    presaleWhitelist(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
     price(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     renounceOwnership(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    reserve(
-      _numWizards: BigNumberish,
+    reveal(
+      kaijuId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -425,9 +542,11 @@ export class Wizards extends BaseContract {
       from: string,
       to: string,
       tokenId: BigNumberish,
-      _data: BytesLike,
+      data: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    saleActive(overrides?: CallOverrides): Promise<[boolean]>;
 
     setApprovalForAll(
       operator: string,
@@ -436,38 +555,24 @@ export class Wizards extends BaseContract {
     ): Promise<ContractTransaction>;
 
     setBaseURI(
-      _newBaseURI: string,
+      uri: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    setKKold(
+      IKKoldAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setPrice(
-      _newPrice: BigNumberish,
+      newPrice: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    setProvenanceHash(
-      _hash: string,
+    setRadioactiveWaste(
+      rWasteAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
-
-    setSummonStartBlock(
-      _newSummonStartBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    setVault(
-      _newVaultAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    summon(
-      numWizards: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    summonStartBlock(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    summonStarted(overrides?: CallOverrides): Promise<[boolean]>;
 
     supportsInterface(
       interfaceId: BytesLike,
@@ -475,6 +580,14 @@ export class Wizards extends BaseContract {
     ): Promise<[boolean]>;
 
     symbol(overrides?: CallOverrides): Promise<[string]>;
+
+    togglePresale(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    toggleSale(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     tokenByIndex(
       index: BigNumberish,
@@ -492,11 +605,6 @@ export class Wizards extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    tokensOfOwner(
-      _owner: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber[]]>;
-
     totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     transferFrom(
@@ -511,33 +619,30 @@ export class Wizards extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    uploadWizardsAttributes(
-      s: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    uploadWizardsImage(
-      s: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    vault(overrides?: CallOverrides): Promise<[string]>;
+    walletOfOwner(
+      owner: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber[]]>;
 
     withdraw(
-      _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    withdrawAll(
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
-  MAX_WIZARDS(overrides?: CallOverrides): Promise<BigNumber>;
+  BIO_CHANGE_PRICE(overrides?: CallOverrides): Promise<BigNumber>;
 
-  METADATA_PROVENANCE_HASH(overrides?: CallOverrides): Promise<string>;
+  FUSION_PRICE(overrides?: CallOverrides): Promise<BigNumber>;
 
-  R(overrides?: CallOverrides): Promise<string>;
+  KKold(overrides?: CallOverrides): Promise<string>;
+
+  NAME_CHANGE_PRICE(overrides?: CallOverrides): Promise<BigNumber>;
+
+  RWaste(overrides?: CallOverrides): Promise<string>;
+
+  airdrop(
+    kaijuTokens: BigNumberish[],
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   approve(
     to: string,
@@ -545,18 +650,35 @@ export class Wizards extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  babyCount(overrides?: CallOverrides): Promise<BigNumber>;
+
+  babyKaiju(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+
+  balanceGenesis(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
   balanceOf(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-  baseURI(overrides?: CallOverrides): Promise<string>;
-
-  burn(
-    tokenId: BigNumberish,
+  changeBio(
+    kaijuId: BigNumberish,
+    newBio: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  forwardERC20s(
-    _token: string,
-    _amount: BigNumberish,
+  changeName(
+    kaijuId: BigNumberish,
+    newName: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  editPresale(
+    presaleAddresses: string[],
+    amount: BigNumberish[],
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  fusion(
+    parent1: BigNumberish,
+    parent2: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -571,11 +693,34 @@ export class Wizards extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
+  kaijuData(
+    arg0: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<[string, string] & { name: string; bio: string }>;
+
+  maxGenCount(overrides?: CallOverrides): Promise<BigNumber>;
+
+  maxSupply(overrides?: CallOverrides): Promise<BigNumber>;
+
+  mint(
+    numberOfMints: BigNumberish,
+    overrides?: PayableOverrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  mintPresale(
+    numberOfMints: BigNumberish,
+    overrides?: PayableOverrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   name(overrides?: CallOverrides): Promise<string>;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
   ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
+
+  presaleActive(overrides?: CallOverrides): Promise<boolean>;
+
+  presaleWhitelist(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   price(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -583,8 +728,8 @@ export class Wizards extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  reserve(
-    _numWizards: BigNumberish,
+  reveal(
+    kaijuId: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -599,9 +744,11 @@ export class Wizards extends BaseContract {
     from: string,
     to: string,
     tokenId: BigNumberish,
-    _data: BytesLike,
+    data: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
+
+  saleActive(overrides?: CallOverrides): Promise<boolean>;
 
   setApprovalForAll(
     operator: string,
@@ -610,38 +757,24 @@ export class Wizards extends BaseContract {
   ): Promise<ContractTransaction>;
 
   setBaseURI(
-    _newBaseURI: string,
+    uri: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  setKKold(
+    IKKoldAddress: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setPrice(
-    _newPrice: BigNumberish,
+    newPrice: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  setProvenanceHash(
-    _hash: string,
+  setRadioactiveWaste(
+    rWasteAddress: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
-
-  setSummonStartBlock(
-    _newSummonStartBlock: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  setVault(
-    _newVaultAddress: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  summon(
-    numWizards: BigNumberish,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  summonStartBlock(overrides?: CallOverrides): Promise<BigNumber>;
-
-  summonStarted(overrides?: CallOverrides): Promise<boolean>;
 
   supportsInterface(
     interfaceId: BytesLike,
@@ -649,6 +782,14 @@ export class Wizards extends BaseContract {
   ): Promise<boolean>;
 
   symbol(overrides?: CallOverrides): Promise<string>;
+
+  togglePresale(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  toggleSale(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   tokenByIndex(
     index: BigNumberish,
@@ -662,11 +803,6 @@ export class Wizards extends BaseContract {
   ): Promise<BigNumber>;
 
   tokenURI(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
-
-  tokensOfOwner(
-    _owner: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber[]>;
 
   totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -682,33 +818,27 @@ export class Wizards extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  uploadWizardsAttributes(
-    s: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  uploadWizardsImage(
-    s: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  vault(overrides?: CallOverrides): Promise<string>;
+  walletOfOwner(owner: string, overrides?: CallOverrides): Promise<BigNumber[]>;
 
   withdraw(
-    _amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  withdrawAll(
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    MAX_WIZARDS(overrides?: CallOverrides): Promise<BigNumber>;
+    BIO_CHANGE_PRICE(overrides?: CallOverrides): Promise<BigNumber>;
 
-    METADATA_PROVENANCE_HASH(overrides?: CallOverrides): Promise<string>;
+    FUSION_PRICE(overrides?: CallOverrides): Promise<BigNumber>;
 
-    R(overrides?: CallOverrides): Promise<string>;
+    KKold(overrides?: CallOverrides): Promise<string>;
+
+    NAME_CHANGE_PRICE(overrides?: CallOverrides): Promise<BigNumber>;
+
+    RWaste(overrides?: CallOverrides): Promise<string>;
+
+    airdrop(
+      kaijuTokens: BigNumberish[],
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     approve(
       to: string,
@@ -716,15 +846,38 @@ export class Wizards extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    babyCount(overrides?: CallOverrides): Promise<BigNumber>;
+
+    babyKaiju(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    balanceGenesis(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
     balanceOf(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    baseURI(overrides?: CallOverrides): Promise<string>;
+    changeBio(
+      kaijuId: BigNumberish,
+      newBio: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
-    burn(tokenId: BigNumberish, overrides?: CallOverrides): Promise<void>;
+    changeName(
+      kaijuId: BigNumberish,
+      newName: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
-    forwardERC20s(
-      _token: string,
-      _amount: BigNumberish,
+    editPresale(
+      presaleAddresses: string[],
+      amount: BigNumberish[],
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    fusion(
+      parent1: BigNumberish,
+      parent2: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -739,20 +892,40 @@ export class Wizards extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
+    kaijuData(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string, string] & { name: string; bio: string }>;
+
+    maxGenCount(overrides?: CallOverrides): Promise<BigNumber>;
+
+    maxSupply(overrides?: CallOverrides): Promise<BigNumber>;
+
+    mint(numberOfMints: BigNumberish, overrides?: CallOverrides): Promise<void>;
+
+    mintPresale(
+      numberOfMints: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     name(overrides?: CallOverrides): Promise<string>;
 
     owner(overrides?: CallOverrides): Promise<string>;
 
     ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
+    presaleActive(overrides?: CallOverrides): Promise<boolean>;
+
+    presaleWhitelist(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     price(overrides?: CallOverrides): Promise<BigNumber>;
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
-    reserve(
-      _numWizards: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    reveal(kaijuId: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     "safeTransferFrom(address,address,uint256)"(
       from: string,
@@ -765,9 +938,11 @@ export class Wizards extends BaseContract {
       from: string,
       to: string,
       tokenId: BigNumberish,
-      _data: BytesLike,
+      data: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    saleActive(overrides?: CallOverrides): Promise<boolean>;
 
     setApprovalForAll(
       operator: string,
@@ -775,27 +950,16 @@ export class Wizards extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setBaseURI(_newBaseURI: string, overrides?: CallOverrides): Promise<void>;
+    setBaseURI(uri: string, overrides?: CallOverrides): Promise<void>;
 
-    setPrice(_newPrice: BigNumberish, overrides?: CallOverrides): Promise<void>;
+    setKKold(IKKoldAddress: string, overrides?: CallOverrides): Promise<void>;
 
-    setProvenanceHash(_hash: string, overrides?: CallOverrides): Promise<void>;
+    setPrice(newPrice: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
-    setSummonStartBlock(
-      _newSummonStartBlock: BigNumberish,
+    setRadioactiveWaste(
+      rWasteAddress: string,
       overrides?: CallOverrides
     ): Promise<void>;
-
-    setVault(
-      _newVaultAddress: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    summon(numWizards: BigNumberish, overrides?: CallOverrides): Promise<void>;
-
-    summonStartBlock(overrides?: CallOverrides): Promise<BigNumber>;
-
-    summonStarted(overrides?: CallOverrides): Promise<boolean>;
 
     supportsInterface(
       interfaceId: BytesLike,
@@ -803,6 +967,10 @@ export class Wizards extends BaseContract {
     ): Promise<boolean>;
 
     symbol(overrides?: CallOverrides): Promise<string>;
+
+    togglePresale(overrides?: CallOverrides): Promise<void>;
+
+    toggleSale(overrides?: CallOverrides): Promise<void>;
 
     tokenByIndex(
       index: BigNumberish,
@@ -816,11 +984,6 @@ export class Wizards extends BaseContract {
     ): Promise<BigNumber>;
 
     tokenURI(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
-
-    tokensOfOwner(
-      _owner: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber[]>;
 
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -836,18 +999,12 @@ export class Wizards extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    uploadWizardsAttributes(
-      s: BytesLike,
+    walletOfOwner(
+      owner: string,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<BigNumber[]>;
 
-    uploadWizardsImage(s: BytesLike, overrides?: CallOverrides): Promise<void>;
-
-    vault(overrides?: CallOverrides): Promise<string>;
-
-    withdraw(_amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
-
-    withdrawAll(overrides?: CallOverrides): Promise<void>;
+    withdraw(overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
@@ -869,6 +1026,35 @@ export class Wizards extends BaseContract {
       { owner: string; operator: string; approved: boolean }
     >;
 
+    BioChanged(
+      kaijuId?: null,
+      kaijuBio?: null
+    ): TypedEventFilter<
+      [BigNumber, string],
+      { kaijuId: BigNumber; kaijuBio: string }
+    >;
+
+    KaijuFusion(
+      kaijuId?: null,
+      parent1?: null,
+      parent2?: null
+    ): TypedEventFilter<
+      [BigNumber, BigNumber, BigNumber],
+      { kaijuId: BigNumber; parent1: BigNumber; parent2: BigNumber }
+    >;
+
+    KaijuRevealed(
+      kaijuId?: null
+    ): TypedEventFilter<[BigNumber], { kaijuId: BigNumber }>;
+
+    NameChanged(
+      kaijuId?: null,
+      kaijuName?: null
+    ): TypedEventFilter<
+      [BigNumber, string],
+      { kaijuId: BigNumber; kaijuName: string }
+    >;
+
     OwnershipTransferred(
       previousOwner?: string | null,
       newOwner?: string | null
@@ -888,11 +1074,20 @@ export class Wizards extends BaseContract {
   };
 
   estimateGas: {
-    MAX_WIZARDS(overrides?: CallOverrides): Promise<BigNumber>;
+    BIO_CHANGE_PRICE(overrides?: CallOverrides): Promise<BigNumber>;
 
-    METADATA_PROVENANCE_HASH(overrides?: CallOverrides): Promise<BigNumber>;
+    FUSION_PRICE(overrides?: CallOverrides): Promise<BigNumber>;
 
-    R(overrides?: CallOverrides): Promise<BigNumber>;
+    KKold(overrides?: CallOverrides): Promise<BigNumber>;
+
+    NAME_CHANGE_PRICE(overrides?: CallOverrides): Promise<BigNumber>;
+
+    RWaste(overrides?: CallOverrides): Promise<BigNumber>;
+
+    airdrop(
+      kaijuTokens: BigNumberish[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
     approve(
       to: string,
@@ -900,18 +1095,38 @@ export class Wizards extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    babyCount(overrides?: CallOverrides): Promise<BigNumber>;
+
+    babyKaiju(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    balanceGenesis(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
     balanceOf(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    baseURI(overrides?: CallOverrides): Promise<BigNumber>;
-
-    burn(
-      tokenId: BigNumberish,
+    changeBio(
+      kaijuId: BigNumberish,
+      newBio: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    forwardERC20s(
-      _token: string,
-      _amount: BigNumberish,
+    changeName(
+      kaijuId: BigNumberish,
+      newName: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    editPresale(
+      presaleAddresses: string[],
+      amount: BigNumberish[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    fusion(
+      parent1: BigNumberish,
+      parent2: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -926,6 +1141,25 @@ export class Wizards extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    kaijuData(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    maxGenCount(overrides?: CallOverrides): Promise<BigNumber>;
+
+    maxSupply(overrides?: CallOverrides): Promise<BigNumber>;
+
+    mint(
+      numberOfMints: BigNumberish,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    mintPresale(
+      numberOfMints: BigNumberish,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     name(overrides?: CallOverrides): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
@@ -935,14 +1169,21 @@ export class Wizards extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    presaleActive(overrides?: CallOverrides): Promise<BigNumber>;
+
+    presaleWhitelist(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     price(overrides?: CallOverrides): Promise<BigNumber>;
 
     renounceOwnership(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    reserve(
-      _numWizards: BigNumberish,
+    reveal(
+      kaijuId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -957,9 +1198,11 @@ export class Wizards extends BaseContract {
       from: string,
       to: string,
       tokenId: BigNumberish,
-      _data: BytesLike,
+      data: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    saleActive(overrides?: CallOverrides): Promise<BigNumber>;
 
     setApprovalForAll(
       operator: string,
@@ -968,38 +1211,24 @@ export class Wizards extends BaseContract {
     ): Promise<BigNumber>;
 
     setBaseURI(
-      _newBaseURI: string,
+      uri: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    setKKold(
+      IKKoldAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setPrice(
-      _newPrice: BigNumberish,
+      newPrice: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    setProvenanceHash(
-      _hash: string,
+    setRadioactiveWaste(
+      rWasteAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
-
-    setSummonStartBlock(
-      _newSummonStartBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    setVault(
-      _newVaultAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    summon(
-      numWizards: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    summonStartBlock(overrides?: CallOverrides): Promise<BigNumber>;
-
-    summonStarted(overrides?: CallOverrides): Promise<BigNumber>;
 
     supportsInterface(
       interfaceId: BytesLike,
@@ -1007,6 +1236,14 @@ export class Wizards extends BaseContract {
     ): Promise<BigNumber>;
 
     symbol(overrides?: CallOverrides): Promise<BigNumber>;
+
+    togglePresale(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    toggleSale(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
     tokenByIndex(
       index: BigNumberish,
@@ -1021,11 +1258,6 @@ export class Wizards extends BaseContract {
 
     tokenURI(
       tokenId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    tokensOfOwner(
-      _owner: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1043,36 +1275,28 @@ export class Wizards extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    uploadWizardsAttributes(
-      s: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    uploadWizardsImage(
-      s: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    vault(overrides?: CallOverrides): Promise<BigNumber>;
+    walletOfOwner(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     withdraw(
-      _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    withdrawAll(
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    MAX_WIZARDS(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    BIO_CHANGE_PRICE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    METADATA_PROVENANCE_HASH(
-      overrides?: CallOverrides
+    FUSION_PRICE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    KKold(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    NAME_CHANGE_PRICE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    RWaste(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    airdrop(
+      kaijuTokens: BigNumberish[],
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
-
-    R(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     approve(
       to: string,
@@ -1080,21 +1304,44 @@ export class Wizards extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    babyCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    babyKaiju(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    balanceGenesis(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     balanceOf(
       owner: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    baseURI(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    burn(
-      tokenId: BigNumberish,
+    changeBio(
+      kaijuId: BigNumberish,
+      newBio: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    forwardERC20s(
-      _token: string,
-      _amount: BigNumberish,
+    changeName(
+      kaijuId: BigNumberish,
+      newName: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    editPresale(
+      presaleAddresses: string[],
+      amount: BigNumberish[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    fusion(
+      parent1: BigNumberish,
+      parent2: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1109,6 +1356,25 @@ export class Wizards extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    kaijuData(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    maxGenCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    maxSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    mint(
+      numberOfMints: BigNumberish,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    mintPresale(
+      numberOfMints: BigNumberish,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1118,14 +1384,21 @@ export class Wizards extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    presaleActive(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    presaleWhitelist(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     price(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     renounceOwnership(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    reserve(
-      _numWizards: BigNumberish,
+    reveal(
+      kaijuId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1140,9 +1413,11 @@ export class Wizards extends BaseContract {
       from: string,
       to: string,
       tokenId: BigNumberish,
-      _data: BytesLike,
+      data: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
+
+    saleActive(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setApprovalForAll(
       operator: string,
@@ -1151,38 +1426,24 @@ export class Wizards extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     setBaseURI(
-      _newBaseURI: string,
+      uri: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setKKold(
+      IKKoldAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setPrice(
-      _newPrice: BigNumberish,
+      newPrice: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    setProvenanceHash(
-      _hash: string,
+    setRadioactiveWaste(
+      rWasteAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
-
-    setSummonStartBlock(
-      _newSummonStartBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setVault(
-      _newVaultAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    summon(
-      numWizards: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    summonStartBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    summonStarted(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     supportsInterface(
       interfaceId: BytesLike,
@@ -1190,6 +1451,14 @@ export class Wizards extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    togglePresale(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    toggleSale(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
     tokenByIndex(
       index: BigNumberish,
@@ -1207,11 +1476,6 @@ export class Wizards extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    tokensOfOwner(
-      _owner: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     transferFrom(
@@ -1226,25 +1490,13 @@ export class Wizards extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    uploadWizardsAttributes(
-      s: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+    walletOfOwner(
+      owner: string,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
-
-    uploadWizardsImage(
-      s: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    vault(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     withdraw(
-      _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    withdrawAll(
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
 }

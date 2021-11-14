@@ -4,15 +4,30 @@
 
 import { Contract, Signer, utils } from "ethers";
 import { Provider } from "@ethersproject/providers";
-import type { Wizards, WizardsInterface } from "../Wizards";
+import type { Kaijus, KaijusInterface } from "../Kaijus";
 
 const _abi = [
   {
     inputs: [
       {
         internalType: "string",
-        name: "baseURI",
+        name: "name",
         type: "string",
+      },
+      {
+        internalType: "string",
+        name: "symbol",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "supply",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "genCount",
+        type: "uint256",
       },
     ],
     stateMutability: "nonpayable",
@@ -72,6 +87,82 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
+        indexed: false,
+        internalType: "uint256",
+        name: "kaijuId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "kaijuBio",
+        type: "string",
+      },
+    ],
+    name: "BioChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "kaijuId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "parent1",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "parent2",
+        type: "uint256",
+      },
+    ],
+    name: "KaijuFusion",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "kaijuId",
+        type: "uint256",
+      },
+    ],
+    name: "KaijuRevealed",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "kaijuId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "kaijuName",
+        type: "string",
+      },
+    ],
+    name: "NameChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
         indexed: true,
         internalType: "address",
         name: "previousOwner",
@@ -114,7 +205,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "MAX_WIZARDS",
+    name: "BIO_CHANGE_PRICE",
     outputs: [
       {
         internalType: "uint256",
@@ -127,12 +218,12 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "METADATA_PROVENANCE_HASH",
+    name: "FUSION_PRICE",
     outputs: [
       {
-        internalType: "string",
+        internalType: "uint256",
         name: "",
-        type: "string",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -140,15 +231,54 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "R",
+    name: "KKold",
     outputs: [
       {
-        internalType: "string",
+        internalType: "contract IKKold",
         name: "",
-        type: "string",
+        type: "address",
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "NAME_CHANGE_PRICE",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "RWaste",
+    outputs: [
+      {
+        internalType: "contract IRWaste",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256[]",
+        name: "kaijuTokens",
+        type: "uint256[]",
+      },
+    ],
+    name: "airdrop",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -167,6 +297,57 @@ const _abi = [
     name: "approve",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "babyCount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "babyKaiju",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "balanceGenesis",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -189,27 +370,19 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "baseURI",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "uint256",
-        name: "tokenId",
+        name: "kaijuId",
         type: "uint256",
       },
+      {
+        internalType: "string",
+        name: "newBio",
+        type: "string",
+      },
     ],
-    name: "burn",
+    name: "changeBio",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -217,17 +390,53 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "contract IERC20",
-        name: "_token",
-        type: "address",
+        internalType: "uint256",
+        name: "kaijuId",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "newName",
+        type: "string",
+      },
+    ],
+    name: "changeName",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address[]",
+        name: "presaleAddresses",
+        type: "address[]",
+      },
+      {
+        internalType: "uint256[]",
+        name: "amount",
+        type: "uint256[]",
+      },
+    ],
+    name: "editPresale",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "parent1",
+        type: "uint256",
       },
       {
         internalType: "uint256",
-        name: "_amount",
+        name: "parent2",
         type: "uint256",
       },
     ],
-    name: "forwardERC20s",
+    name: "fusion",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -273,6 +482,82 @@ const _abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "kaijuData",
+    outputs: [
+      {
+        internalType: "string",
+        name: "name",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "bio",
+        type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "maxGenCount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "maxSupply",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "numberOfMints",
+        type: "uint256",
+      },
+    ],
+    name: "mint",
+    outputs: [],
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "numberOfMints",
+        type: "uint256",
+      },
+    ],
+    name: "mintPresale",
+    outputs: [],
+    stateMutability: "payable",
     type: "function",
   },
   {
@@ -322,6 +607,38 @@ const _abi = [
   },
   {
     inputs: [],
+    name: "presaleActive",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "presaleWhitelist",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "price",
     outputs: [
       {
@@ -344,11 +661,11 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "_numWizards",
+        name: "kaijuId",
         type: "uint256",
       },
     ],
-    name: "reserve",
+    name: "reveal",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -395,13 +712,26 @@ const _abi = [
       },
       {
         internalType: "bytes",
-        name: "_data",
+        name: "data",
         type: "bytes",
       },
     ],
     name: "safeTransferFrom",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "saleActive",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -426,7 +756,7 @@ const _abi = [
     inputs: [
       {
         internalType: "string",
-        name: "_newBaseURI",
+        name: "uri",
         type: "string",
       },
     ],
@@ -438,8 +768,21 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "IKKoldAddress",
+        type: "address",
+      },
+    ],
+    name: "setKKold",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "uint256",
-        name: "_newPrice",
+        name: "newPrice",
         type: "uint256",
       },
     ],
@@ -451,79 +794,14 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "string",
-        name: "_hash",
-        type: "string",
-      },
-    ],
-    name: "setProvenanceHash",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_newSummonStartBlock",
-        type: "uint256",
-      },
-    ],
-    name: "setSummonStartBlock",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
         internalType: "address",
-        name: "_newVaultAddress",
+        name: "rWasteAddress",
         type: "address",
       },
     ],
-    name: "setVault",
+    name: "setRadioactiveWaste",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "numWizards",
-        type: "uint256",
-      },
-    ],
-    name: "summon",
-    outputs: [],
-    stateMutability: "payable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "summonStartBlock",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "summonStarted",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
   {
@@ -556,6 +834,20 @@ const _abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "togglePresale",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "toggleSale",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -621,25 +913,6 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_owner",
-        type: "address",
-      },
-    ],
-    name: "tokensOfOwner",
-    outputs: [
-      {
-        internalType: "uint256[]",
-        name: "",
-        type: "uint256[]",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [],
     name: "totalSupply",
     outputs: [
@@ -691,73 +964,37 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "bytes",
-        name: "s",
-        type: "bytes",
+        internalType: "address",
+        name: "owner",
+        type: "address",
       },
     ],
-    name: "uploadWizardsAttributes",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes",
-        name: "s",
-        type: "bytes",
-      },
-    ],
-    name: "uploadWizardsImage",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "vault",
+    name: "walletOfOwner",
     outputs: [
       {
-        internalType: "address",
+        internalType: "uint256[]",
         name: "",
-        type: "address",
+        type: "uint256[]",
       },
     ],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
-      },
-    ],
+    inputs: [],
     name: "withdraw",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
-  {
-    inputs: [],
-    name: "withdrawAll",
-    outputs: [],
-    stateMutability: "payable",
-    type: "function",
-  },
 ];
 
-export class Wizards__factory {
+export class Kaijus__factory {
   static readonly abi = _abi;
-  static createInterface(): WizardsInterface {
-    return new utils.Interface(_abi) as WizardsInterface;
+  static createInterface(): KaijusInterface {
+    return new utils.Interface(_abi) as KaijusInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): Wizards {
-    return new Contract(address, _abi, signerOrProvider) as Wizards;
+  static connect(address: string, signerOrProvider: Signer | Provider): Kaijus {
+    return new Contract(address, _abi, signerOrProvider) as Kaijus;
   }
 }
