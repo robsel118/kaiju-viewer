@@ -7,7 +7,7 @@ import { StoreContext } from '../store/StoreContext';
 import { getAffinityRarityColor, getRarityColor, getRarityDescriptor, viewerTheme } from '../viewer.utils';
 
 const useStyles = makeStyles((theme) => ({
-  wizardDisplay: {
+  kaijuDisplay: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -88,7 +88,7 @@ const KaijuDisplay = observer((): JSX.Element | null => {
   const rankStyle = { color: getAffinityRarityColor(rank / totalKaijus) };
 
   return (
-    <div className={classes.wizardDisplay}>
+    <div className={classes.kaijuDisplay}>
       <div className={classes.spriteContainer}>
         <img key={image} src={image} className={classes.spriteContainer} />
       </div>

@@ -34,11 +34,11 @@ interface TraitProps {
   occurrence: number;
 }
 
-export interface WizardTraitProps {
+export interface KaijuTraitProps {
   kaiju: KaijuData;
 }
 
-function WizardTrait(props: TraitProps): JSX.Element {
+function KaijuTrait(props: TraitProps): JSX.Element {
   const classes = useStyles(viewerTheme);
   const store = useContext(StoreContext);
 
@@ -62,7 +62,7 @@ function WizardTrait(props: TraitProps): JSX.Element {
   );
 }
 
-export default function WizardTraits(props: WizardTraitProps): JSX.Element {
+export default function KaijuTraits(props: KaijuTraitProps): JSX.Element {
   const classes = useStyles(viewerTheme);
   const { kaiju } = props;
   const { ranks } = store;
@@ -78,7 +78,7 @@ export default function WizardTraits(props: WizardTraitProps): JSX.Element {
         const rarity = ranks.getRarity(traitValue);
         const descriptor = getRarityDescriptor(rarity);
         return (
-          <WizardTrait
+          <KaijuTrait
             key={`${kaiju.name}-${j}`}
             descriptor={descriptor}
             typeDisplay={typeDisplay}

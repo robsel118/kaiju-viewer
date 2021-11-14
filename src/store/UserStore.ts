@@ -1,6 +1,6 @@
 import { ethers, Signer } from 'ethers';
 import { action, extendObservable } from 'mobx';
-import { wizardsAddress } from '../config/constants';
+import { kaijuAddress } from '../config/constants';
 import { Kaijus__factory } from '../contracts';
 import { KaijuData } from '../interface/kaiju-data.interface';
 import { RootStore } from './RootStore';
@@ -39,7 +39,7 @@ export class UserStore {
         this.wallet = await provider.getSigner();
         this.address = await this.wallet.getAddress();
         if (this.address && this.wallet) {
-          const kaijuContract = Kaijus__factory.connect(wizardsAddress, this.wallet);
+          const kaijuContract = Kaijus__factory.connect(kaijuAddress, this.wallet);
           const kaijuIds = await kaijuContract.walletOfOwner(this.address);
           this.collection = kaijuIds.map((id) => Number(id.toString()));
           const collection = kaijuIds.map((id) => id.toString());

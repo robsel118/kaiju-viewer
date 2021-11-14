@@ -57,8 +57,8 @@ export class RankStore extends KaijuStore {
   updateUserKaijus() {
     const ranking = this.custom ? this.customRanking : this.ranking;
     const kaijus = this.store.user.kaijus ?? [];
-    const userWizards = new Set(kaijus.map((kaiju) => kaiju.tokenId));
-    this.store.user.kaijus = ranking.filter((kaiju) => userWizards.has(kaiju.tokenId));
+    const userKaijus = new Set(kaijus.map((kaiju) => kaiju.tokenId));
+    this.store.user.kaijus = ranking.filter((kaiju) => userKaijus.has(kaiju.tokenId));
   }
 
   get displayRanking(): KaijuData[] {

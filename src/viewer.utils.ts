@@ -19,7 +19,7 @@ const kaijuKingWeb = {
 } as const;
 
 const openseaGraphUrl = 'https://api.opensea.io/graphql/';
-const wizardQuery = {
+const kaijuQuery = {
   id: 'collectionQuery',
   query:
     'query collectionQuery(\n  $collection: CollectionSlug!\n) {\n  collection(collection: $collection) {\n    bannerImageUrl\n    name\n    description\n    imageUrl\n    ...CollectionHeader_data\n    id\n  }\n}\n\nfragment CollectionHeader_data on CollectionType {\n  name\n  description\n  imageUrl\n  bannerImageUrl\n  ...CollectionStatsBar_data\n  ...SocialBar_data\n  ...verification_data\n}\n\nfragment CollectionStatsBar_data on CollectionType {\n  stats {\n    averagePrice\n    numOwners\n    totalSupply\n    totalVolume\n    id\n  }\n  slug\n}\n\nfragment SocialBar_data on CollectionType {\n  discordUrl\n  externalUrl\n  instagramUsername\n  isEditable\n  mediumUsername\n  slug\n  telegramUrl\n  twitterUsername\n}\n\nfragment verification_data on CollectionType {\n  isMintable\n  isSafelisted\n  isVerified\n}\n',
@@ -67,7 +67,7 @@ export const viewerTheme = createMuiTheme({
 export async function getKaijuData(): Promise<CollectionInfo | undefined> {
   const response = await fetch(openseaGraphUrl, {
     method: 'POST',
-    body: JSON.stringify(wizardQuery),
+    body: JSON.stringify(kaijuQuery),
   });
   if (!response.ok) {
     return;

@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
   },
-  wizardDisplay: {
+  kaijuDisplay: {
     backgroundColor: '#af8954',
   },
   flexContainer: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
       display: 'block',
     },
   },
-  wizardList: {
+  kaijuList: {
     justifyContent: 'center',
   },
   list: {
